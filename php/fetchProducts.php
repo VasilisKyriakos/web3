@@ -14,22 +14,21 @@ $response = [
 
 try {
     $subcategoryId = isset($_POST['subcategory_id']) ? $_POST['subcategory_id'] : null;
-    
+
     // Check if subcategory ID is provided
     if (!$subcategoryId) {
         throw new Exception("Subcategory ID not provided!");
     }
 
     // Fetch products based on subcategory
-    $stmt = $link->prepare("SELECT * FROM products WHERE subcategory = ?");
-    $stmt->bind_param("s", $subcategoryId);
-    
-    if (!$stmt->execute()) {
-        throw new Exception("Error fetching products: " . $stmt->error);
+    $query = "SELECT * FROM products WHERE subcategory = '$subcategoryId'";
+    $result = mysqli_query($link, $query);
+
+    if (!$result) {
+        throw new Exception("Error fetching products: " . mysqli_error($link));
     }
 
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $response["products"][] = $row;
     }
 
@@ -40,7 +39,6 @@ try {
     $response["message"] = "Error: " . $e->getMessage();
 }
 
-$stmt->close();
 mysqli_close($link);
 echo json_encode($response);
 ?>
