@@ -7,11 +7,6 @@ $(document).ready(function() {
         loadSubcategories(categoryId);
     });
 
-    // Listen for category change to load subcategories
-    $("#subcategoryDropdown").change(function() {
-        let subcategoryId = $(this).val();
-        loadProducts(subcategoryId);
-    });
 });
 
 function loadCategories() {
