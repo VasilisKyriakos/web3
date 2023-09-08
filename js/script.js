@@ -49,9 +49,17 @@ window.onload = function() {
                     allMarkers = [];
                     console.log(response.data);
                     response.data.forEach(function(shop) {
+                        var popupContent = `
+                            <div>
+                                <strong>${shop.name || "Shop"}</strong><br>
+                                <a href="./addDiscount.html?shopId=${shop.id}" class="btn btn-sm btn-primary" style="color: white;">Add Discount</a>
+                            </div>
+                        `;
+
                         var marker = L.marker([shop.lat, shop.lon])
                             .addTo(map)
-                            .bindPopup(shop.name || "Shop");
+                            .bindPopup(popupContent);
+                    
     
                         marker.shopData = shop;
                         allMarkers.push(marker);

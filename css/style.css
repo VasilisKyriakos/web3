@@ -3,6 +3,10 @@
     z-index: 0;
 }
 
+.btn-primary {
+    color: white !important; /* Force override */
+}
+
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
