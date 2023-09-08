@@ -1,0 +1,156 @@
+{
+    "fetch_date": 1669214001,
+    "products": [
+      {
+        "id": "0",
+        "name": "Κύκνος Τομάτες Αποφλ Ολoκλ 400γρ",
+        "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+        "subcategory": "a02951b1c083449b9e7fab2fabd67198"
+      },
+      {
+        "id": "1",
+        "name": "Elite Φρυγανιές Ολικής Άλεσης 180γρ",
+        "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+        "subcategory": "a483dd538ecd4ce0bdbba36e99ab5eb1"
+      },
+      {
+        "id": "2",
+        "name": "Trata Σαρδέλα Λαδιού 100γρ",
+        "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+        "subcategory": "df10062ca2a04789bd43d18217008b5f"
+      },
+      {
+        "id": "3",
+        "name": "Μεβγάλ Τυρί Ημισκλ Μακεδ 420γρ",
+        "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+        "subcategory": "4c73d0eccd1e4dde8bb882e436a64ebb"
+      },
+      {
+        "id": "4",
+        "name": "Μινέρβα Χωριό Μαργαρίνη Με Ελαιόλαδο 250γρ",
+        "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+        "subcategory": "a240e48245964b02ba73d1a86a2739be"
+      }
+    
+    ],
+    "categories": [
+      {
+        "id": "8016e637b54241f8ad242ed1699bf2da",
+        "name": "Βρεφικά Είδη",
+        "subcategories": [
+          {
+            "name": "Απορρυπαντικά",
+            "uuid": "991276688c8c4a91b5524b1115122ec1"
+          },
+          {
+            "name": "Πάνες",
+            "uuid": "e0efaa1776714351a4c17a3a9d412602"
+          },
+          {
+            "name": "Γάλα",
+            "uuid": "fc71b59318b5410d8ed9da8b42904d77"
+          },
+          {
+            "name": "Περιποιήση σώματος",
+            "uuid": "ddb733df68324cfc8469c890b32e716d"
+          },
+          {
+            "name": "Σαμπουάν - Αφρόλουτρα",
+            "uuid": "3d0c29b055f8417eb1c679fbfdc37da0"
+          },
+          {
+            "name": "Γιαούρτια",
+            "uuid": "724700777199431e9d42861b2ed63cd5"
+          },
+          {
+            "name": "Μωρομάντηλα",
+            "uuid": "92680b33561c4a7e94b7e7a96b5bb153"
+          },
+          {
+            "name": "Βρεφικές τροφές",
+            "uuid": "7e86994327f64e3ca967c09b5803966a"
+          }
+        ]
+      },
+      {
+        "id": "d41744460283406a86f8e4bd5010a66d",
+        "name": "Καθαριότητα",
+        "subcategories": [
+          {
+            "name": "Είδη γενικού καθαρισμού",
+            "uuid": "3be81b50494d4b5495d5fea3081759a6"
+          },
+          {
+            "name": "Χαρτικά",
+            "uuid": "034941f08ca34f7baaf5932427d7e635"
+          },
+          {
+            "name": "Αποσμητικά Χώρου",
+            "uuid": "21051788a9ff4d5d9869d526182b9a5f"
+          },
+          {
+            "name": "Εντομoκτόνα - Εντομοαπωθητικά",
+            "uuid": "8f98818a7a55419fb42ef1d673f0bb64"
+          },
+          {
+            "name": "Απορρυπαντικά",
+            "uuid": "e60aca31a37a40db8a83ccf93bd116b1"
+          },
+          {
+            "name": "Είδη κουζίνας - Μπάνιου",
+            "uuid": "b5d54a3d8dd045fb88d5c31ea794dcc5"
+          }
+        ]
+      },
+   
+      {
+        "id": "ee0022e7b1b34eb2b834ea334cda52e7",
+        "name": "Τρόφιμα",
+        "subcategories": [
+          {
+            "name": "Αλεύρι - Σιμιγδάλι",
+            "uuid": "c761cd8b18a246eb81fb21858ac10093"
+          },
+          {
+            "name": "Αλλαντικά",
+            "uuid": "be04eae3ca484928a86984d73bf3cc3a"
+          },
+          {
+            "name": "Αυγά",
+            "uuid": "6d2babbc7355444ca0d27633207e4743"
+          },
+          {
+            "name": "Βούτυρο - Μαργαρίνη",
+            "uuid": "a240e48245964b02ba73d1a86a2739be"
+          },
+          {
+            "name": "Γιαούρτια",
+            "uuid": "0364b4be226146699140e81a469d04a1"
+          },
+          {
+            "name": "Είδη Ζαχαροπλαστικής",
+            "uuid": "a1a1c2c477b74504b58ad847f7e0c8e1"
+          },
+          {
+            "name": "Γλυκά/Σοκολάτες",
+            "uuid": "dca17e0bfb4e469c93c011f8dc8ab512"
+          },
+          {
+            "name": "Επιδόρπια",
+            "uuid": "509b949f61cc44f58c2f25093f7fc3eb"
+          }
+        ]
+      },
+     
+      {
+        "id": "2d5f74de114747fd824ca8a6a9d687fa",
+        "name": "Προστασία Υγείας",
+        "subcategories": [
+          {
+            "name": "Μάσκες Προσώπου",
+            "uuid": "79728a412a1749ac8315501eb77550f9"
+          }
+        ]
+      }
+    ]
+  }

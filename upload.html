@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Upload User Data</title>
+
+    <!-- Including jQuery and Bootstrap 5's CSS, JS and Icons -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Including your external JavaScript file -->
+    <script src="./js/upload.js" defer></script>
+
+    <style>
+        
+
+        /* Container style */
+        .rounded-container {
+            border-radius: 20px;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        /* Spacing between cards */
+        .card + .card {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+    <body>
+
+        <!-- Navbar -->
+        <div id="navbar-placeholder"></div>
+
+        <div class="container mt-5">
+            <div class="row">
+        
+                <!-- Left Side: Product Upload -->
+                <div class="col-lg-6 mb-4">
+                    <div class="p-4 shadow-sm bg-white rounded">
+                        <h5><i class="bi bi-box-arrow-up"></i> Upload Products</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <input type="file" id="dataFile" class="form-control mb-2" style="flex: 1; margin-right: 20px;">
+                            <div>
+                                <button onclick="sendData()" class="btn btn-outline-primary btn-sm"><i class="bi bi-upload"></i> Upload</button>
+                                <button id="deleteData" class="btn btn-outline-danger btn-sm ms-2"><i class="bi bi-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Right Side: Store Upload -->
+                <div class="col-lg-6">
+                    <div class="p-4 shadow-sm bg-white rounded">
+                        <h5><i class="bi bi-shop-window"></i> Upload Stores</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <input type="file" id="shopsFile" class="form-control mb-2" style="flex: 1; margin-right: 20px;">
+                            <div>
+                                <button onclick="sendDataShops()" class="btn btn-outline-primary btn-sm"><i class="bi bi-upload"></i> Upload</button>
+                                <button id="deleteShops" class="btn btn-outline-danger btn-sm ms-2"><i class="bi bi-trash"></i> Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </body>
+</html>

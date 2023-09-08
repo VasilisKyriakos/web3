@@ -1,0 +1,64 @@
+#map {
+    height: 100px;
+    z-index: 0;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #343a40, #212529); /* Gradient effect from one shade of gray to another */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);  /* Adds a slight shadow for depth */
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px; /* Increase spacing between letters for brand name */
+    transition: color 0.3s;
+}
+
+.navbar-brand:hover {
+    color: #999;  /* Slightly fade the color on hover */
+}
+
+
+
+#logoutBtn:hover {
+    background-color: #f45b5b; /* A lighter shade of red on hover */
+}
+
+
+.bg-gradient {
+    background: linear-gradient(to right, #000000, #000000);
+}
+
+.rounded-container {
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+#shopDropdown {
+    max-height: 150px;
+    overflow-y: auto; /* Enables vertical scrolling */
+    background-color: #fff; /* Optional: A white background for better visibility */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#shopDropdown div {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#shopDropdown div:hover {
+    background-color: #f8f8f8;
+}
+
+#shopDropdown::-webkit-scrollbar {
+    display: none;
+}
+
