@@ -7,6 +7,11 @@ $(document).ready(function() {
         loadSubcategories(categoryId);
     });
 
+    $("#subcategoryDropdown").change(function() {
+        let subcategoryId = $(this).val();
+        loadProducts(subcategoryId);
+    });
+
 });
 
 function loadCategories() {
@@ -55,20 +60,23 @@ function loadSubcategories(categoryId) {
 }
 
 
-function loadProducts() {
-    let subcategory_id = $('#subcategoryDropdown').val();
+function loadProducts(subcategoryId) {
     $.ajax({
         url: './php/fetchProducts.php',
         type: 'POST',
-        data: { subcategory_id: subcategory_id },
+        data: { subcategory_id: subcategoryId },
         dataType: 'json',
-        success: function(data) {
-            let productsDropdown = $("#productsDropdown");
-            // Clear previous entries
-            productsDropdown.empty();
-            data.products.forEach(product => {
-                productsDropdown.append(`<option value="${product.id}">${product.name}</option>`);
-            });
+        success: function(response) {
+            if(response.status === "success") {
+                let productsDropdown = $("#productDropdown");
+                // Clear previous entries
+                productsDropdown.empty();
+                response.products.forEach(product => {
+                    productsDropdown.append(`<option value="${product.id}">${product.name}</option>`);
+                });
+            }else {
+                console.error("Error fetching products", response.message);
+            }
         },
         error: function(error) {
             console.error("Failed to fetch products:", error);

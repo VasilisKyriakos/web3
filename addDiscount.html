@@ -32,16 +32,23 @@
         <!-- Dropdowns for Category, Subcategory and Product -->
         <div>
             <select id="categoryDropdown" onchange="loadSubcategories()">
+                <!-- Default category option with selected attribute -->
+                <option value="defaultCategory" selected>Select a Category</option>
                 <!-- Categories will be populated here -->
             </select>
-
+            
             <select id="subcategoryDropdown" onchange="loadProducts()">
+                <!-- Default subcategory option with selected attribute -->
+                <option value="defaultSubcategory" selected>Select a Subcategory</option>
                 <!-- Subcategories will be populated based on selected category -->
             </select>
-
+            
             <select id="productDropdown">
+                <!-- Default product option with selected attribute -->
+                <option value="defaultProduct" selected>Select a Product</option>
                 <!-- Products will be populated based on selected subcategory -->
             </select>
+            
         </div>
     </div>
 
