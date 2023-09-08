@@ -26,7 +26,7 @@ function loadCategories() {
                     categoriesDropdown.append(`<option value="${category.id}">${category.name}</option>`);
                 });
             } else {
-                console.error("Error fetching categories:", response.message);
+                console.error("Error fetching categories_ajax:", response.message);
             }
         },
         error: function(error) {
@@ -48,9 +48,11 @@ function loadSubcategories(categoryId) {
                 subcategoriesDropdown.empty();
                 response.subcategories.forEach(subcategory => {
                     subcategoriesDropdown.append(`<option value="${subcategory.uuid}">${subcategory.name}</option>`);
+                
                 });
+                
             } else {
-                console.error("Error fetching subcategories:", response.message);
+                console.error("Error fetching subcategories_ajax:", response.message);
             }
         },
         error: function(error) {
@@ -75,7 +77,7 @@ function loadProducts(subcategoryId) {
                     productsDropdown.append(`<option value="${product.id}">${product.name}</option>`);
                 });
             }else {
-                console.error("Error fetching products", response.message);
+                console.error("Error fetching products_ajax", response.message);
             }
         },
         error: function(error) {
