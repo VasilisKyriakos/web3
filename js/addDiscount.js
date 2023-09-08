@@ -1,4 +1,8 @@
+
+
+
 $(document).ready(function() {
+
     loadCategories();
 
     // Listen for category change to load subcategories
@@ -13,6 +17,7 @@ $(document).ready(function() {
     });
 
 });
+
 
 function loadCategories() {
     $.ajax({

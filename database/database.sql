@@ -27,6 +27,13 @@ CREATE TABLE shops (
     name VARCHAR(255)
 );
 
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
 
 
 CREATE INDEX idx_category ON products (category);

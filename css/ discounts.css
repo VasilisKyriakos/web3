@@ -1,0 +1,35 @@
+.custom-shadow {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-xl {
+    border-radius: 1rem !important;
+}
+
+.form-select {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    padding: 0.6rem 1.5rem;
+    border-radius:1rem;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.form-control {
+    border-radius: 1rem;
+}
+
+body {
+    background-color: #f3f4f6;
+}
+
+.btn-custom {
+    background-color: #007bff;
+    color: white;
+    border-radius: 1rem;
+    padding: 0.5rem 2rem;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+}
