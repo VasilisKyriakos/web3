@@ -14,12 +14,12 @@ $response = [
 
 try {
     // Fetch categories
-    $result = $link->query("SELECT * FROM categories");
+    $result = mysqli_query($link, "SELECT * FROM categories");
     if (!$result) {
-        throw new Exception("Error fetching categories: " . $link->error);
+        throw new Exception("Error fetching categories: " . mysqli_error($link));
     }
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $response["categories"][] = $row;
     }
 

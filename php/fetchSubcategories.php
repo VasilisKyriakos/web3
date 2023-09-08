@@ -20,16 +20,14 @@ try {
         throw new Exception("Category ID not provided!");
     }
 
-    // Fetch subcategories based on category ID
-    $stmt = $link->prepare("SELECT * FROM subcategories WHERE category_id = ?");
-    $stmt->bind_param("s", $categoryId);
-    
-    if (!$stmt->execute()) {
-        throw new Exception("Error fetching subcategories: " . $stmt->error);
+    $query = "SELECT * FROM subcategories WHERE category_id = '$categoryId'";
+    $result = mysqli_query($link, $query);
+
+    if (!$result) {
+        throw new Exception("Error fetching subcategories: " . mysqli_error($link));
     }
 
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $response["subcategories"][] = $row;
     }
 
@@ -40,7 +38,6 @@ try {
     $response["message"] = "Error: " . $e->getMessage();
 }
 
-$stmt->close();
 mysqli_close($link);
 echo json_encode($response);
 ?>
