@@ -9,9 +9,23 @@ function sessionInfo() {
                 console.log("SessionInfo response: "+response)
             } else {
                 document.getElementById('username').textContent = "Guest";
-                alert('No user logged in.'); // Guest or no user logged in
+                
                 console.log("SessionInfo response: "+response)
             }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error checking session:", textStatus, errorThrown);
+        }
+    });
+}
+
+function clearSession(){
+    $.ajax({
+        url: './php/userAuthentication/logout.php', // Updated path to session_handler.php
+        type: 'POST',
+        data: {},
+        success: function() {
+            window.location.href = "login.html";
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error checking session:", textStatus, errorThrown);
