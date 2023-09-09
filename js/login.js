@@ -23,5 +23,5 @@ function login() {
             console.error("Login failed:", textStatus, errorThrown);
         }
     });
-    $("#navbar-placeholder").load("navbar.html");
+    
 }
