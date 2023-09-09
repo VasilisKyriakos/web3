@@ -101,12 +101,10 @@ function loadProducts(subcategoryId) {
 
 function fetchShopId() {
     let retrievedShopId = localStorage.getItem('shopId');
-    
-    // Log the shopId value
     console.log("Retrieved Shop ID:", retrievedShopId);
-    
     return retrievedShopId;
 }
+
 /*
 function submitDiscount() {
     $.ajax({
