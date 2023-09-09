@@ -215,26 +215,32 @@ window.onload = function() {
             dataType: 'json',
             success: function(response) {
                 if(response.status === "success" && response.data.length > 0) {
-                    var discountDetails = '';
+                    var discountDetails = `<div class="discount-container">`;
                     response.data.forEach(discount => {
                         discountDetails += `
-                            <div>
-                                Product: ${discount.product_name}<br>
-                                Price: ${discount.price}<br>
-                                Date: ${discount.date_of_entry}<br>
-                                Likes: ${discount.likes} / Dislikes: ${discount.dislikes}<br>
-                                Stock: ${discount.in_stock === '1' ? 'Yes' : 'No'}
-                            </div>
-                        `;
+                        <ul class="list-group mt-2">
+                            <li class="list-group-item"><strong>Product:</strong> ${discount.product_name}</li>
+                            <li class="list-group-item"><strong>Price:</strong> ${discount.price}</li>
+                            <li class="list-group-item"><strong>Date:</strong> ${discount.date_of_entry}</li>
+                            <li class="list-group-item"><strong>Likes:</strong> ${discount.likes} / <strong>Dislikes:</strong> ${discount.dislikes}</li>
+                            <li class="list-group-item"><strong>Stock:</strong> ${discount.in_stock === '1' ? 'Yes' : 'No'}</li>
+                        </ul>
+                    `;
+                    
                     });
 
                     var popupContent = `
-                        <div>
-                            <strong>${response.data[0].shop_name || "Shop"}</strong><br>
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <h5 class="card-title">${response.data[0].name || "Shop"}</h5>
                             ${discountDetails}
-                            <a href="./addDiscount.html?shopId=${shopId}" class="btn btn-sm btn-primary" style="color: white;">Add Discount</a>
+                            <div class="mt-3">
+                                <a href="./addDiscount.html?shopId=${shopId}" class="btn btn-success text-white btn-sm">Add Discount</a>
+                            </div>
                         </div>
-                    `;
+                    </div>
+                `;
+                
 
                     callback(popupContent);
                 } else {

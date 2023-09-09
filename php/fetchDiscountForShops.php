@@ -17,7 +17,7 @@ if (!isset($_GET['shop_id'])) {
 
 $shop_id = mysqli_real_escape_string($link, $_GET['shop_id']);
 
-$query = "SELECT * FROM discounts WHERE shop_id = $shop_id";
+$query = "SELECT * FROM discounts  JOIN shops ON shops.id = discounts.shop_id WHERE shop_id = $shop_id";
 $result = mysqli_query($link, $query);
 
 if (!$result) {

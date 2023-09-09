@@ -3,6 +3,21 @@
     z-index: 0;
 }
 
+
+.discount-container {
+    max-height: 300px;  /* Adjust based on your desired maximum height */
+    overflow-y: auto;   /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+
+/* Hide the scrollbar for IE, Edge and Firefox */
+.discount-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+
 .btn-primary {
     color: white !important; /* Force override */
 }
