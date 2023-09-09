@@ -21,6 +21,13 @@ window.onload = function() {
     // Locate the user
     map.locate({setView: true, maxZoom: 16});
     
+    var personIcon = L.icon({
+        iconUrl: './js/person.png', // update this to your icon's path
+        iconSize: [38, 95], // size of the icon, adjust accordingly
+        iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+        popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+
     function onLocationFound(e) {
         var radius = e.accuracy;
 
@@ -141,6 +148,9 @@ window.onload = function() {
     document.getElementById("btnSearch").addEventListener("click", function() {
         if (selectedShopName) {
     
+            // Add markers for shops that match the selected name
+            var matchingShops = allShops.filter(shop => shop.name === selectedShopName);
+
             // Remove all markers
             allMarkers.forEach(marker => marker.remove());
             allMarkers = []; 
@@ -148,17 +158,15 @@ window.onload = function() {
             // Define icons
             var defaultIcon = new L.Icon.Default();
             var discountIcon = new L.Icon({
-                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
                 iconSize: [25, 41],
                 iconAnchor: [12, 41],
                 popupAnchor: [1, -34],
                 shadowSize: [41, 41]
             });
-    
-            // Add markers for shops that match the selected name
-            var matchingShops = allShops.filter(shop => shop.name === selectedShopName);
+
             matchingShops.forEach(function(shop) {
-                var popupContent = `
+                var popupContentInitial = `
                         <div>
                             <strong>${shop.name || "Shop"}</strong><br>
                             <a href="./addDiscount.html?shopId=${shop.id}" 
@@ -167,14 +175,13 @@ window.onload = function() {
                         </div>
                     `;
     
-                // Check if the current shop exists in the allMarkers array (i.e., has a discount)
                 var hasDiscount = discountShops.some(marker => marker.shopData.id === shop.id);
     
                 var marker = L.marker([shop.lat, shop.lon], { 
                     icon: hasDiscount ? discountIcon : defaultIcon 
                 })
                 .addTo(map)
-                .bindPopup(popupContent);
+                .bindPopup(popupContentInitial);
     
                 marker.shopData = shop;
                 allMarkers.push(marker);
@@ -182,16 +189,64 @@ window.onload = function() {
                 marker.on('click', function() {
                     console.log("Clicked shopId:", shop.id);
                     localStorage.setItem('shopId', shop.id);
+    
+                    if (hasDiscount) {
+                        fetchDiscountsForShop(shop.id, function(popupContentWithDiscounts) {
+                            marker.setPopupContent(popupContentWithDiscounts).openPopup();
+                        });
+                    }
                 });
             });
     
             // Optionally, set the view to the first shop with that name (if exists)
             if (matchingShops[0]) {
                 map.setView([matchingShops[0].lat, matchingShops[0].lon], 15);
-                allMarkers[0].openPopup();
+                //allMarkers[0].openPopup();
             }
         }
-    });
+    });  
+
+    // Function to fetch discounts for a shop and return the constructed popup content
+    function fetchDiscountsForShop(shopId, callback) {
+        $.ajax({
+            url: './php/fetchDiscountForShops.php',
+            type: 'GET',
+            data: { shop_id: shopId },
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === "success" && response.data.length > 0) {
+                    var discountDetails = '';
+                    response.data.forEach(discount => {
+                        discountDetails += `
+                            <div>
+                                Product: ${discount.product_name}<br>
+                                Price: ${discount.price}<br>
+                                Date: ${discount.date_of_entry}<br>
+                                Likes: ${discount.likes} / Dislikes: ${discount.dislikes}<br>
+                                Stock: ${discount.in_stock === '1' ? 'Yes' : 'No'}
+                            </div>
+                        `;
+                    });
+
+                    var popupContent = `
+                        <div>
+                            <strong>${response.data[0].shop_name || "Shop"}</strong><br>
+                            ${discountDetails}
+                            <a href="./addDiscount.html?shopId=${shopId}" class="btn btn-sm btn-primary" style="color: white;">Add Discount</a>
+                        </div>
+                    `;
+
+                    callback(popupContent);
+                } else {
+                    console.error("No discounts found or error:", response.message);
+                }
+            },
+            error: function(error) {
+                console.error("AJAX error:", error);
+            }
+        });
+    }
+    
     
     
 }
