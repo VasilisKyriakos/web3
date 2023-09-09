@@ -12,7 +12,9 @@ function login() {
         success: function(response) {
             if (response.includes('Login successful!')) {
                 alert('Logged in successfully.');
+                console.error("Logegd in");
                 window.location.href = "index.html";
+                window.load()
             } else {
                 alert(response);
             }
@@ -21,4 +23,5 @@ function login() {
             console.error("Login failed:", textStatus, errorThrown);
         }
     });
+    $("#navbar-placeholder").load("navbar.html");
 }

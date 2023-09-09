@@ -5,7 +5,7 @@ function register() {
 
     // Here, we could add client-side validation for the password, but remember server-side validation is essential!
     if (!isValidPassword(password)) {
-        alert("Password does not meet the requirements.");
+        alert("Password does not meet the requirements."+ password);
         return;
     }
 
