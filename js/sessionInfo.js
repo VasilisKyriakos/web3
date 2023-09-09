@@ -41,3 +41,22 @@ function clearSession(){
         }
     });
 }
+
+function sessionActive(){
+    $.ajax({
+        url: './php/sessionInfo.php', // Updated path to session_handler.php
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if(response.username == "Guest" && response.id == "-1"){
+                window.location.href = "login.html";
+            }
+            console.log("Session info id: " + response.id);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            window.location.href = "login.html";
+            console.error("Error checking session:", textStatus, errorThrown);
+        }
+    });
+
+}
