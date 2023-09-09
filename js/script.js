@@ -205,6 +205,8 @@ window.onload = function() {
             }
         }
     });  
+
+    /*
     function fetchDiscountsReview(shopId) {
         let shopId = fetchS 
         $.ajax({
@@ -234,7 +236,7 @@ window.onload = function() {
                 alert('An error occurred while fetching data.');
             }
         });
-    }
+    }*/
     
 
     // Function to fetch discounts for a shop and return the constructed popup content
