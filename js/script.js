@@ -57,16 +57,13 @@ window.onload = function() {
                                style="color: white;">Add Discount</a>
                         </div>
                     `;
-                    
-
-                                             
+                                       
                         var marker = L.marker([shop.lat, shop.lon])
                             .addTo(map)
                             .bindPopup(popupContent);
     
                         marker.shopData = shop;
                         allMarkers.push(marker);
-
 
                         // You would add an event listener to the marker:
                         marker.on('click', function() {
