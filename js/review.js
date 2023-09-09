@@ -28,11 +28,24 @@ function fetchDiscountsForShop(shopId) {
                 let rowsHtml = '';
                 
                 response.data.forEach(discount => {
-                    let likeBtn = discount.in_stock === '1' 
-                    ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'like')"><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>` 
-                    : `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>`;
-                                    let dislikeBtn = discount.in_stock === '1' ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'dislike')"><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>` : `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>`;
-                    let stockBtn = `<button class="btn btn-sm ${discount.in_stock === '1' ? 'btn-success' : 'btn-danger'}" onclick="toggleStock(${discount.discount_id})">${discount.in_stock === '1' ? 'In Stock' : 'Out of Stock'}</button>`;
+                    //let likeBtn = discount.in_stock === '1' 
+                    //? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'like')"><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>` 
+                    //: `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>`;
+                    //let dislikeBtn = discount.in_stock === '1' ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'dislike')"><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>` : `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>`;
+                    
+
+                    let likeBtn = `
+                    <button id="like-btn-${discount.discount_id}" class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'like')" ${discount.in_stock === '0' ? 'disabled' : ''}>
+                        <i class="fas fa-thumbs-up"></i> ${discount.likes}
+                    </button>`;
+                    
+                    let dislikeBtn = `
+                    <button id="dislike-btn-${discount.discount_id}" class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'dislike')" ${discount.in_stock === '0' ? 'disabled' : ''}>
+                        <i class="fas fa-thumbs-down"></i> ${discount.dislikes}
+                    </button>`;
+                    
+
+                    let stockBtn = `<button id="stock-btn-${discount.discount_id}" class="btn btn-sm ${discount.in_stock === '1' ? 'btn-success' : 'btn-danger'}" onclick="toggleStock(${discount.discount_id})">${discount.in_stock === '1' ? 'In Stock' : 'Out of Stock'}</button>`;
                     
                     rowsHtml += `
                         <tr>
@@ -78,20 +91,48 @@ function updateLikes(discountId, type) {
     }, "json");
 }
 
+
+
+
 function toggleStock(discountId) {
     console.log("Toggling stock for:", discountId);
-    const currentStock = $(`#stock-btn-${discountId}`).hasClass('btn-success') ? '1' : '0';
-    const newStock = currentStock === '1' ? '0' : '1';
+
+    const currentStock = $(`#stock-btn-${discountId}`).hasClass('btn-success'); // returns true or false
     
-    $.post("./php/updateStock.php", {
-        discount_id: discountId,
-        in_stock: newStock
-    }, function(response) {
-        if (response.status === "success") {
-            fetchDiscountsForShop(fetchShopId()); // Refetch to update stock status
-        } else {
-            console.error(response.message);
-            alert('Error updating stock status.');
+    const newStock = currentStock ? '0' : '1'; // adjusted this line
+
+    $.ajax({
+        url: "./php/updateStock.php",
+        type: 'POST',
+        data: {
+            discount_id: discountId,
+            in_stock: newStock
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response.status === "success") {
+                // Update the buttons directly
+                if (newStock === '1') {
+                    $(`#stock-btn-${discountId}`).removeClass('btn-danger').addClass('btn-success').text('In Stock');
+                    
+                    // Enable like and dislike buttons
+                    $(`#like-btn-${discountId}`).prop('disabled', false);
+                    $(`#dislike-btn-${discountId}`).prop('disabled', false);
+                } else {
+                    $(`#stock-btn-${discountId}`).removeClass('btn-success').addClass('btn-danger').text('Out of Stock');
+                    
+                    // Disable like and dislike buttons
+                    $(`#like-btn-${discountId}`).prop('disabled', true);
+                    $(`#dislike-btn-${discountId}`).prop('disabled', true);
+                }
+            } else {
+                console.error(response.message);
+                alert('Error updating stock status.');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Request failed: " + textStatus, errorThrown);
         }
-    }, "json");
+    });
 }
+
