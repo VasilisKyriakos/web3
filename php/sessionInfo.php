@@ -3,17 +3,17 @@
 session_start();
 
 $response = [
-    "id" => "",
-    "username" => "",
+    'id' => '',
+    'username' => '',
 ];
 // Check if a user is logged in
 if (isset($_SESSION['username'])) {
-    $response["username"] = $_SESSION['username']; 
-    $response["id"] = $_SESSION['id']; 
+    $response['username'] = $_SESSION['username']; 
+    $response['id'] = $_SESSION['id']; 
 
 } else {
-    $response["username"] = "Guest";
-    $response["id"] = "-1"; 
+    $response['username'] = 'Guest';
+    $response['id'] = '-1'; 
 }
 
 echo json_encode($response);

@@ -12,7 +12,7 @@ $row = mysqli_fetch_assoc($result);
 if(mysqli_num_rows($result) > 0) {
     // Create session or cookies as necessary
     $_SESSION['username'] = $username;
-    $_SESSION['userId'] = $row['id'];
+    $_SESSION['id'] = $row['id'];
     echo "Login successful!";
 } else {
     echo "Incorrect username or password.";
