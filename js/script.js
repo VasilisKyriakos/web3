@@ -58,16 +58,22 @@ window.onload = function() {
                         </div>
                     `;
                     
-                    localStorage.setItem('shopId', shop.id);
-                    
-                    
+
+                                             
                         var marker = L.marker([shop.lat, shop.lon])
                             .addTo(map)
                             .bindPopup(popupContent);
-                    
     
                         marker.shopData = shop;
                         allMarkers.push(marker);
+
+
+                        // You would add an event listener to the marker:
+                        marker.on('click', function() {
+                            console.log("Clicked shopId:", shop.id);
+                            localStorage.setItem('shopId', shop.id);
+                        });
+
                     });
                 } else {
                     console.error("Failed to fetch shops: ", response.message);
@@ -75,6 +81,7 @@ window.onload = function() {
             }
         });
     }
+
 
     
     // Filter function for dropdown
