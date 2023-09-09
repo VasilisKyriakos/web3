@@ -8,7 +8,7 @@ function sessionInfo() {
                 document.getElementById('username').textContent = response;
                 console.log("SessionInfo response: "+response)
             } else {
-                document.getElementById('username').textContent = response;
+                document.getElementById('username').textContent = "Guest";
                 alert('No user logged in.'); // Guest or no user logged in
                 console.log("SessionInfo response: "+response)
             }
