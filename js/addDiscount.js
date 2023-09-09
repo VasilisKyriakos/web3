@@ -138,14 +138,20 @@ function submitDiscount() {
         $.ajax({
             url: './php/uploadDiscount.php',
             type: 'POST',
-            data: { user_id: userId,
-                    shop_id: shopId,
-                    product_name: productName,
-                    product_price: productPrice},
+            data: { 
+                user_id: userId,
+                shop_id: shopId,
+                product_name: productName,
+                product_price: productPrice
+            },
             dataType: 'json',
             success: function(response) {
                 if(response.status === "success") {
                     console.log(response.message);
+                    // Show a notification
+                    alert("Discount uploaded successfully!");
+                    // Redirect to index.html
+                    window.location.href = 'index.html';
                 } else {
                     console.error("Error:", response.message);
                 }
