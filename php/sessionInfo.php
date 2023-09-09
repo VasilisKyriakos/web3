@@ -2,11 +2,19 @@
 // Start the session (if not already started)
 session_start();
 
+$response = [
+    "id" => "",
+    "username" => "",
+];
 // Check if a user is logged in
 if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username']; // Replace 'username' with the key in your session containing the username
-    echo $username; // Return the username
+    $response["username"] = $_SESSION['username']; 
+    $response["id"] = $_SESSION['id']; 
+
 } else {
-    echo "Guest"; // Return "Guest" if no user is logged in
+    $response["username"] = "Guest";
+    $response["id"] = "-1"; 
 }
+
+echo json_encode($response);
 ?>
