@@ -29,14 +29,14 @@ function fetchDiscountsForShop(shopId) {
                 
                 response.data.forEach(discount => {
                     let likeBtn = discount.in_stock === '1' 
-                    ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.id}, 'like')"><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>` 
+                    ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'like')"><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>` 
                     : `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-up"></i> ${discount.likes}</button>`;
-                                    let dislikeBtn = discount.in_stock === '1' ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.id}, 'dislike')"><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>` : `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>`;
-                    let stockBtn = `<button class="btn btn-sm ${discount.in_stock === '1' ? 'btn-success' : 'btn-danger'}" onclick="toggleStock(${discount.id})">${discount.in_stock === '1' ? 'In Stock' : 'Out of Stock'}</button>`;
+                                    let dislikeBtn = discount.in_stock === '1' ? `<button class="btn btn-sm btn-light" onclick="updateLikes(${discount.discount_id}, 'dislike')"><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>` : `<button class="btn btn-sm btn-light" disabled><i class="fas fa-thumbs-down"></i> ${discount.dislikes}</button>`;
+                    let stockBtn = `<button class="btn btn-sm ${discount.in_stock === '1' ? 'btn-success' : 'btn-danger'}" onclick="toggleStock(${discount.discount_id})">${discount.in_stock === '1' ? 'In Stock' : 'Out of Stock'}</button>`;
                     
                     rowsHtml += `
                         <tr>
-                            <td>${discount.id}</td>
+                            <td>${discount.discount_id}</td>
                             <td>${discount.name}</td>
                             <td>${discount.product_name}</td>
                             <td>${discount.price}</td>
@@ -79,6 +79,7 @@ function updateLikes(discountId, type) {
 }
 
 function toggleStock(discountId) {
+    console.log("Toggling stock for:", discountId);
     const currentStock = $(`#stock-btn-${discountId}`).hasClass('btn-success') ? '1' : '0';
     const newStock = currentStock === '1' ? '0' : '1';
     

@@ -12,7 +12,7 @@ if (isset($_POST['discount_id']) && isset($_POST['type'])) {
     $type = $_POST['type'];
     $column = $type === 'like' ? 'likes' : 'dislikes';
     
-    $query = "UPDATE discounts SET $column = $column + 1 WHERE id = $discount_id";
+    $query = "UPDATE discounts SET $column = $column + 1 WHERE discount_id = $discount_id";
     $result = mysqli_query($link, $query);
 
     if ($result) {
