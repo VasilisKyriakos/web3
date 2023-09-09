@@ -15,6 +15,7 @@ window.onload = function() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    loadShopsDiscounts();
     loadShops();
 
     // Locate the user
@@ -37,10 +38,28 @@ window.onload = function() {
     map.on('locationerror', onLocationError);
 
 
-    var allMarkers = []; // Array to hold all markers    
+    
+    var allShops = []; // Array to hold all markers    
     function loadShops() {
         $.ajax({
             url: './php/fetchShops.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    allShops = response.data;
+                } else {
+                    console.error("Failed to fetch shops: ", response.message);
+                }
+            }
+        });
+    }
+
+
+    var allMarkers = []; // Array to hold all markers    
+    function loadShopsDiscounts() {
+        $.ajax({
+            url: './php/fetchShopsDiscounts.php',
             type: 'GET',
             dataType: 'json',
             success: function(response) {
@@ -57,19 +76,29 @@ window.onload = function() {
                                style="color: white;">Add Discount</a>
                         </div>
                     `;
-                                       
-                        var marker = L.marker([shop.lat, shop.lon])
-                            .addTo(map)
-                            .bindPopup(popupContent);
-    
-                        marker.shopData = shop;
-                        allMarkers.push(marker);
 
-                        // You would add an event listener to the marker:
-                        marker.on('click', function() {
-                            console.log("Clicked shopId:", shop.id);
-                            localStorage.setItem('shopId', shop.id);
-                        });
+                    var greenIcon = new L.Icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41]
+                      });
+                      
+                                       
+                    var marker = L.marker([shop.lat, shop.lon], {icon: greenIcon})
+                        .addTo(map)
+                        .bindPopup(popupContent);
+
+                    marker.shopData = shop;
+                    allMarkers.push(marker);
+
+                    // You would add an event listener to the marker:
+                    marker.on('click', function() {
+                        console.log("Clicked shopId:", shop.id);
+                        localStorage.setItem('shopId', shop.id);
+                    });
 
                     });
                 } else {
@@ -78,21 +107,16 @@ window.onload = function() {
             }
         });
     }
-
-
     
-    // Filter function for dropdown
     document.getElementById("shopSearch").addEventListener("input", function() {
         var searchTerm = this.value.toLowerCase();
-        var matchingShops = allMarkers.filter(marker => 
-            marker.shopData.name.toLowerCase().includes(searchTerm)
-        );
-
-        var uniqueShopNames = [...new Set(matchingShops.map(marker => marker.shopData.name))];
-
+        var matchingShops = allShops.filter(shop => shop.name.toLowerCase().includes(searchTerm));
+    
+        var uniqueShopNames = [...new Set(matchingShops.map(shop => shop.name))];
+    
         var dropdown = document.getElementById("shopDropdown");
         dropdown.innerHTML = ""; // Clear previous results
-
+    
         uniqueShopNames.forEach(name => {
             var item = document.createElement("div");
             item.innerText = name;
@@ -103,30 +127,54 @@ window.onload = function() {
             });
             dropdown.appendChild(item);
         });
-
+    
         dropdown.style.display = uniqueShopNames.length ? "block" : "none";
     });
     
+    
 
-    // Search button function to focus on selected shops by name
     document.getElementById("btnSearch").addEventListener("click", function() {
         if (selectedShopName) {
+
             // Remove all markers
             allMarkers.forEach(marker => marker.remove());
-
+            allMarkers = [];
+    
             // Add markers for shops that match the selected name
-            var matchingMarkers = allMarkers.filter(marker => marker.shopData.name === selectedShopName);
-            matchingMarkers.forEach(marker => marker.addTo(map));
+            var matchingShops = allShops.filter(shop => shop.name === selectedShopName);
+            matchingShops.forEach(function(shop) {
+                var popupContent = `
+                        <div>
+                            <strong>${shop.name || "Shop"}</strong><br>
+                            <a href="./addDiscount.html?shopId=${shop.id}" 
+                               class="btn btn-sm btn-primary" 
+                               style="color: white;">Add Discount</a>
+                        </div>
+                    `;
+                
+        
+                var marker = L.marker([shop.lat, shop.lon])
+                .addTo(map)
+                .bindPopup(popupContent);
 
-            map.on('locationfound', onLocationFound);
+                marker.shopData = shop;
+                allMarkers.push(marker);
 
+                // You would add an event listener to the marker:
+                marker.on('click', function() {
+                    console.log("Clicked shopId:", shop.id);
+                    localStorage.setItem('shopId', shop.id);
+                });
+            });
+    
             // Optionally, set the view to the first shop with that name (if exists)
-            if (matchingMarkers[0]) {
-                map.setView(matchingMarkers[0].getLatLng(), 15);
-                matchingMarkers[0].openPopup();
+            if (matchingShops[0]) {
+                map.setView([matchingShops[0].lat, matchingShops[0].lon], 15);
+                allMarkers[0].openPopup();
             }
         }
     });
+    
 }
 
    

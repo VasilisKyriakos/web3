@@ -3,6 +3,9 @@
 
 $(document).ready(function() {
 
+    let shopId = fetchShopId();
+    console.log(shopId);
+
     loadCategories();
 
     // Listen for category change to load subcategories
