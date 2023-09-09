@@ -10,11 +10,10 @@ $response = [
     "message" => ""
 ];
 
-$userId = $_POST['user_id'];
-$shopId = $_POST['shop_id'];
+$userId = (int)$_POST['user_id'];
+$shopId = (int)$_POST['shop_id'];
 $productName = $_POST['product_name'];
-$price = $_POST['price'];
-
+$price = (int)$_POST['price'];
 
 $sql = "INSERT INTO discounts (user_id, shop_id, product_name, price) VALUES ('$userId', '$shopId', '$productName', '$price')";
 
