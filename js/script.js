@@ -57,6 +57,8 @@ window.onload = function() {
 
 
     var allMarkers = []; // Array to hold all markers    
+    var discountShops = []; // Array to hold all markers    
+
     function loadShopsDiscounts() {
         $.ajax({
             url: './php/fetchShopsDiscounts.php',
@@ -66,6 +68,7 @@ window.onload = function() {
                 if (response.status === 'success') {
                     allMarkers.forEach(marker => marker.remove());
                     allMarkers = [];
+                    discountShops = [];
                     console.log(response.data);
                     response.data.forEach(function(shop) {
                         var popupContent = `
@@ -93,6 +96,8 @@ window.onload = function() {
 
                     marker.shopData = shop;
                     allMarkers.push(marker);
+                    discountShops.push(marker);
+
 
                     // You would add an event listener to the marker:
                     marker.on('click', function() {
@@ -135,10 +140,20 @@ window.onload = function() {
 
     document.getElementById("btnSearch").addEventListener("click", function() {
         if (selectedShopName) {
-
+    
             // Remove all markers
             allMarkers.forEach(marker => marker.remove());
-            allMarkers = [];
+            allMarkers = []; 
+    
+            // Define icons
+            var defaultIcon = new L.Icon.Default();
+            var discountIcon = new L.Icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
     
             // Add markers for shops that match the selected name
             var matchingShops = allShops.filter(shop => shop.name === selectedShopName);
@@ -151,16 +166,19 @@ window.onload = function() {
                                style="color: white;">Add Discount</a>
                         </div>
                     `;
-                
-        
-                var marker = L.marker([shop.lat, shop.lon])
+    
+                // Check if the current shop exists in the allMarkers array (i.e., has a discount)
+                var hasDiscount = discountShops.some(marker => marker.shopData.id === shop.id);
+    
+                var marker = L.marker([shop.lat, shop.lon], { 
+                    icon: hasDiscount ? discountIcon : defaultIcon 
+                })
                 .addTo(map)
                 .bindPopup(popupContent);
-
+    
                 marker.shopData = shop;
                 allMarkers.push(marker);
-
-                // You would add an event listener to the marker:
+    
                 marker.on('click', function() {
                     console.log("Clicked shopId:", shop.id);
                     localStorage.setItem('shopId', shop.id);
@@ -174,6 +192,7 @@ window.onload = function() {
             }
         }
     });
+    
     
 }
 
