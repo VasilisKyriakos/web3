@@ -50,12 +50,17 @@ window.onload = function() {
                     console.log(response.data);
                     response.data.forEach(function(shop) {
                         var popupContent = `
-                            <div>
-                                <strong>${shop.name || "Shop"}</strong><br>
-                                <a href="./addDiscount.html?shopId=${shop.id}" class="btn btn-sm btn-primary" style="color: white;">Add Discount</a>
-                            </div>
-                        `;
-
+                        <div>
+                            <strong>${shop.name || "Shop"}</strong><br>
+                            <a href="./addDiscount.html?shopId=${shop.id}" 
+                               class="btn btn-sm btn-primary" 
+                               style="color: white;">Add Discount</a>
+                        </div>
+                    `;
+                    
+                    localStorage.setItem('shopId', shop.id);
+                    
+                    
                         var marker = L.marker([shop.lat, shop.lon])
                             .addTo(map)
                             .bindPopup(popupContent);

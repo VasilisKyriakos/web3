@@ -3,6 +3,7 @@
 
 $(document).ready(function() {
 
+    fetchShopId();
     loadCategories();
 
     // Listen for category change to load subcategories
@@ -15,6 +16,13 @@ $(document).ready(function() {
         let subcategoryId = $(this).val();
         loadProducts(subcategoryId);
     });
+
+    // Bind the function to the button's click event
+    document.querySelector('.btn-custom').addEventListener('click', function(e) {
+        e.preventDefault();
+        submitDiscount();
+    });
+
 
 });
 
@@ -90,3 +98,38 @@ function loadProducts(subcategoryId) {
         }
     });
 }
+
+function fetchShopId() {
+    let retrievedShopId = localStorage.getItem('shopId');
+    
+    // Log the shopId value
+    console.log("Retrieved Shop ID:", retrievedShopId);
+    
+    return retrievedShopId;
+}
+/*
+function submitDiscount() {
+    $.ajax({
+        url: './php.uploadDiscount.php',
+        method: 'POST',
+        data: {
+            user_id: ...,
+            shop_id: fetchShopId(),
+            product_name: ...,
+            price: ...,
+            date_of_entry: ...
+        },
+        success: function(response) {
+            if (response.status === "success") {
+                alert("Discount uploaded successfully!");
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function(err) {
+            alert("There was an error in uploading the discount.");
+        }
+    });
+}
+
+*/
