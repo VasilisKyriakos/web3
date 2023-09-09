@@ -3,8 +3,6 @@
 
 $(document).ready(function() {
 
-    //fetchShopId();
-    //getUserId();
     loadCategories();
 
     // Listen for category change to load subcategories
@@ -116,7 +114,7 @@ function getUserId() {
         async: false, // Makes the request synchronous
         success: function(response) {
             userId = response.id;
-            console.log(userId);
+            console.log("User ID:",userId);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error checking session:", textStatus, errorThrown);
@@ -128,52 +126,32 @@ function getUserId() {
 
 function submitDiscount() {
 
-    // Get the product name
-    var productName = $('#productDropdown option:selected').text();
+    let userId = getUserId();
+    let shopId = fetchShopId();
+    let productName = $('#productDropdown option:selected').text();
+    let productPrice = $('#productPrice').val();
 
-    // Check if a valid product is selected
-    if(productName === "Select a Product") {
-        alert("Please select a valid product.");
-        return;
-    }
-
-    // Get the product price
-    var productPrice = $('#productPrice').val();
-
-    console.log(productName);
-    console.log(productPrice);
-
-
-    // Check if the price is entered and valid
-    if(!productPrice || productPrice <= 0) {
-        alert("Please enter a valid product price.");
-        return;
-    }
-
-    var userId = getUserId();
-    console.log(userId);
-
-    var shopId = fetchShopId();
-    console.log(shopId);
-
-    $.ajax({
-        url: './php/uploadDiscount.php',
-        method: 'POST',
-        data: {
-            user_id: userId,
-            shop_id: shopId,
-            product_name: productName,
-            price: productPrice,
-        },
-        success: function(response) {
-            if (response.status === "success") {
-                alert("Discount uploaded successfully!");
-            } else {
-                alert(response.message);
+    if (userId !== null) {
+        $.ajax({
+            url: './php/uploadDiscount.php',
+            type: 'POST',
+            data: { user_id: userId,
+                    shop_id: shopId,
+                    product_name: productName,
+                    product_price: productPrice},
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === "success") {
+                    console.log(response.message);
+                } else {
+                    console.error("Error:", response.message);
+                }
+            },
+            error: function(error) {
+                console.error("AJAX error:", error);
             }
-        },
-        error: function(err) {
-            alert("There was an error in uploading the discount.");
-        }
-    });
+        });
+    } else {
+        console.error("User ID is not set.");
+    }
 }
