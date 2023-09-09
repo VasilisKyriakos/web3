@@ -1,27 +1,38 @@
 <?php
 include "connector.php"; // This should connect to your database
+session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 $response = [
     "status" => "error",
     "message" => ""
 ];
 
-$userId = $_POST['user_id'];
-$shopId = $_POST['shop_id'];
-$productName = $_POST['product_name'];
-$price = $_POST['price'];
-$dateOfEntry = $_POST['date_of_entry'];
+// Check if data exists
+if(isset($_POST['user_id'], $_POST['shop_id'], $_POST['product_name'], $_POST['price'])) {
+    $userId = $_POST['user_id'];
+    $shopId = $_POST['shop_id'];
+    $productName = $_POST['product_name'];
+    $price = $_POST['price'];
 
+    // Use prepared statements to avoid SQL injection
+    $stmt = $link->prepare("INSERT INTO discounts (user_id, shop_id, product_name, price ) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iisss", $userId, $shopId, $productName, $price);
 
-$sql = "INSERT INTO discounts (user_id, shop_id, product_name, price, date_of_entry) VALUES ('$userId', '$shopId', '$productName', '$price', '$dateOfEntry')";
+    if ($stmt->execute()) {
+        $response["status"] = "success";
+        $response["message"] = "Discount uploaded successfully!";
+    } else {
+        $response["message"] = "Error: " . $stmt->error;
+    }
 
-if (mysqli_query($link, $sql)) {
-    $response["status"] = "success";
-    $response["message"] = "Discount uploaded successfully!";
+    $stmt->close();
+
 } else {
-    $response["message"] = "Error: " . mysqli_error($link);
+    $response["message"] = "Required fields are missing.";
 }
 
-mysqli_close($link);
 echo json_encode($response);
 ?>

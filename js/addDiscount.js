@@ -3,7 +3,8 @@
 
 $(document).ready(function() {
 
-    fetchShopId();
+    //fetchShopId();
+    //getUserId();
     loadCategories();
 
     // Listen for category change to load subcategories
@@ -105,17 +106,64 @@ function fetchShopId() {
     return retrievedShopId;
 }
 
-/*
-function submitDiscount() {
+
+function getUserId() {
+    let userId = null;
     $.ajax({
-        url: './php.uploadDiscount.php',
+        url: './php/sessionInfo.php',
+        type: 'GET',
+        dataType: 'json',
+        async: false, // Makes the request synchronous
+        success: function(response) {
+            userId = response.id;
+            console.log(userId);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error checking session:", textStatus, errorThrown);
+        }
+    });
+    return userId;
+}
+
+
+function submitDiscount() {
+
+    // Get the product name
+    var productName = $('#productDropdown option:selected').text();
+
+    // Check if a valid product is selected
+    if(productName === "Select a Product") {
+        alert("Please select a valid product.");
+        return;
+    }
+
+    // Get the product price
+    var productPrice = $('#productPrice').val();
+
+    console.log(productName);
+    console.log(productPrice);
+
+
+    // Check if the price is entered and valid
+    if(!productPrice || productPrice <= 0) {
+        alert("Please enter a valid product price.");
+        return;
+    }
+
+    var userId = getUserId();
+    console.log(userId);
+
+    var shopId = fetchShopId();
+    console.log(shopId);
+
+    $.ajax({
+        url: './php/uploadDiscount.php',
         method: 'POST',
         data: {
-            user_id: ...,
-            shop_id: fetchShopId(),
-            product_name: ...,
-            price: ...,
-            date_of_entry: ...
+            user_id: userId,
+            shop_id: shopId,
+            product_name: productName,
+            price: productPrice,
         },
         success: function(response) {
             if (response.status === "success") {
@@ -129,5 +177,3 @@ function submitDiscount() {
         }
     });
 }
-
-*/
