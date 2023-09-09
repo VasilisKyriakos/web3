@@ -205,6 +205,37 @@ window.onload = function() {
             }
         }
     });  
+    function fetchDiscountsReview(shopId) {
+        let shopId = fetchS 
+        $.ajax({
+            url: './php/fetchDiscountForShops.php',
+            type: 'GET',
+            data: { shop_id: shopId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === "success" && response.data.length > 0) {
+                    const tableBody = document.getElementById('discount-table').querySelector('tbody');
+                    document.getElementById('shop-name').textContent = response.data[0].name || "Shop";
+                    
+                    response.data.forEach(discount => {
+                        const row = tableBody.insertRow();
+                        row.insertCell(0).textContent = discount.product_name;
+                        row.insertCell(1).textContent = discount.price;
+                        row.insertCell(2).textContent = discount.date_of_entry;
+                        row.insertCell(3).textContent = `${discount.likes} / ${discount.dislikes}`;
+                        row.insertCell(4).textContent = discount.in_stock === '1' ? 'Yes' : 'No';
+                    });
+                } else {
+                    alert("No discounts found or error:", response.message);
+                }
+            },
+            error: function(error) {
+                console.error("AJAX error:", error);
+                alert('An error occurred while fetching data.');
+            }
+        });
+    }
+    
 
     // Function to fetch discounts for a shop and return the constructed popup content
     function fetchDiscountsForShop(shopId, callback) {
@@ -236,6 +267,7 @@ window.onload = function() {
                             ${discountDetails}
                             <div class="mt-3">
                                 <a href="./addDiscount.html?shopId=${shopId}" class="btn btn-success text-white btn-sm">Add Discount</a>
+                                <a href="./reviewDiscounts.html?shopId=${shopId}" class="btn btn-success text-white btn-sm ml-2">Review</a>
                             </div>
                         </div>
                     </div>
