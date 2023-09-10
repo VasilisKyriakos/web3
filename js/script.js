@@ -14,9 +14,9 @@ window.onload = function() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+    processExpiredBids();
     loadShopsDiscounts();
     loadShops();
-
     loadCategories();
  
     // Locate the user
@@ -67,6 +67,34 @@ window.onload = function() {
         allMarkers.forEach(marker => marker.remove());
             allMarkers = [];
     }
+
+
+
+    function processExpiredBids() {
+        $.ajax({
+            url: './php/renewDiscounts.php', // Change this to the path of your PHP file
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === "success") {
+                    console.log("Successfully processed expired bids.");
+                    
+                    if(response.updated.length) {
+                        console.log("Updated records with IDs:", response.updated.join(', '));
+                    }
+                    if(response.deleted.length) {
+                        console.log("Deleted records with IDs:", response.deleted.join(', '));
+                    }
+                } else {
+                    console.error("Error processing bids:", response.message);
+                }
+            },
+            error: function(error) {
+                console.error("Ajax error:", error);
+            }
+        });
+    }
+    
         
     function loadCategories() {
         $.ajax({

@@ -9,6 +9,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
 $response = array(
     'status' => 'error',
     'message' => ''
@@ -52,12 +53,12 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
 
     if ($productPrice <= (0.8 * $avgPriceYesterday)) {
         // Reward 50 points
-        $queryReward = "UPDATE users SET points = points + 50 WHERE id = '$userId'";
+        $queryReward = "UPDATE users SET total_points = total_points + 50 , monthly_points =  monthly_points + 50 WHERE id = '$userId'";
         mysqli_query($link, $queryReward);
         $response['message'] .= "User rewarded with 50 points for the daily discount.";
     } elseif ($productPrice <= (0.8 * $avgPriceLastWeek)) {
         // Reward 20 points
-        $queryReward = "UPDATE users SET points = points + 20 WHERE id = '$userId'";
+        $queryReward = "UPDATE users SET total_points = total_points + 50, monthly_points =  monthly_points + 50 WHERE id = '$userId'";
         mysqli_query($link, $queryReward);
         $response['message'] .= "User rewarded with 20 points for the weekly discount.";
     } else {
@@ -65,8 +66,10 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
         $response['message'] .= "No rewards given, but the discount offer is uploaded.";
     }
 
-    // Insert the discount
-    $query = "INSERT INTO discounts (user_id, shop_id, product_name, price) VALUES ('$userId', '$shopId', '$productName', '$productPrice')";
+    $dateOfEntry = date('Y-m-d'); // Assuming this is today's date
+    $expiryDate = date('Y-m-d', strtotime('+7 days', strtotime($dateOfEntry)));
+    
+    $query = "INSERT INTO discounts (user_id, shop_id, product_name, price , expired_date) VALUES ('$userId', '$shopId', '$productName', '$productPrice','$expiryDate')";
     if(mysqli_query($link, $query)) {
         $response['status'] = 'success';
         $response['message'] .= " Discount uploaded successfully!";
