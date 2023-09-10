@@ -13,34 +13,32 @@ if (isset($_POST['discount_id']) && isset($_POST['type'])) {
     $type = $_POST['type'];
     $column = $type === 'like' ? 'likes' : 'dislikes';
 
-        $query = "UPDATE discounts SET $column = $column + 1 WHERE discount_id = $discount_id";
-        if(!mysqli_query($link, $query)) {
-            throw new Exception("Failed to update like/dislike count: " . mysqli_error($link));
-        }
+    $query = "UPDATE discounts SET $column = $column + 1 WHERE discount_id = $discount_id";
+    if(!mysqli_query($link, $query)) {
+        throw new Exception("Failed to update like/dislike count: " . mysqli_error($link));
+    }
 
-        // Get the user_id of the recommending user from the discount
-        $getUserQuery = "SELECT user_id FROM discounts WHERE discount_id = $discount_id";
-        $result = mysqli_query($link, $getUserQuery);
+    // Get the user_id of the recommending user from the discount
+    $getUserQuery = "SELECT user_id FROM discounts WHERE discount_id = $discount_id";
+    $result = mysqli_query($link, $getUserQuery);
 
+    $data = mysqli_fetch_assoc($result);
+    $recommendingUserId = $data['user_id'];
+
+    // Calculate points based on the action
+    $pointsChange = $type === 'like' ? 5 : -1;
+
+    // Update total and monthly points
+    $pointsQuery = "UPDATE users SET total_points = total_points + $pointsChange, monthly_points = GREATEST(0, monthly_points + $pointsChange) WHERE id = $recommendingUserId";
     
-        $data = mysqli_fetch_assoc($result);
-        $recommendingUserId = $data['user_id'];
+    if(!mysqli_query($link, $pointsQuery)) {
+        throw new Exception("Failed to update user points: " . mysqli_error($link));
+    }
 
-        // Update points based on the action
-        if ($type === 'like') {
-            $pointsQuery = "UPDATE users SET points = points + 5 WHERE id = $recommendingUserId";
-        } else {
-            $pointsQuery = "UPDATE users SET points = points - 1 WHERE id = $recommendingUserId";
-        }
-
-        if(!mysqli_query($link, $pointsQuery)) {
-            throw new Exception("Failed to update user points: " . mysqli_error($link));
-        }
-
-        // Commit the transaction
-        mysqli_commit($link);
-        $response['status'] = 'success';
-        $response['message'] = 'Updated Successfully';
+    // Commit the transaction
+    mysqli_commit($link);
+    $response['status'] = 'success';
+    $response['message'] = 'Updated Successfully';
 
 }
 echo json_encode($response);
