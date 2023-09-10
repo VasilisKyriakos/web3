@@ -77,6 +77,44 @@ function sendDataShops() {
 }
 
 
+
+
+function sendDataPrices() {
+    const fileInput = document.getElementById('pricesFile');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const fileContent = e.target.result;
+
+            $.ajax({
+                url: './php/uploadPrices.php',
+                type: 'POST',
+                data: { content: fileContent },
+                success: function(response) {
+                    console.log("Response from server:", response);
+                    showAlert(response, "success");
+                },
+                error: function(err) {
+                    console.error("AJAX Error:", err);
+                }
+            });
+        }
+
+        reader.onerror = function(error) {
+            console.error("File Reading Error:", error);
+        };
+
+        reader.readAsText(file);
+    } else {
+        console.error("No file selected!");
+    }
+}
+
+
+
 $(document).ready(function() {
     $('#deleteShops').click(function() {
         if (confirm('Are you sure you want to delete everything? This action cannot be undone.')) {
@@ -113,6 +151,27 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+$(document).ready(function() {
+    $('#deletePrices').click(function() {
+        if (confirm('Are you sure you want to delete all data? This action cannot be undone.')) {
+            $.ajax({
+                url: './php/deletePrices.php',
+                type: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    showAlert(response.message, "warning");
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+});
+
 
 
 

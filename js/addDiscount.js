@@ -7,7 +7,7 @@ $(document).ready(function() {
     console.log(shopId);
 
     loadCategories();
-
+    loadSearchProducts();
     // Listen for category change to load subcategories
     $("#categoryDropdown").change(function() {
         let categoryId = $(this).val();
@@ -27,6 +27,45 @@ $(document).ready(function() {
 
 
 });
+
+
+let allProducts = [];
+
+function loadSearchProducts() {
+    $.ajax({
+        url: './php/fetchProducts.php',
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+            if(response.status === "success") {
+                allProducts = response.products;
+                populateDropdown(allProducts);
+            } else {
+                console.error("Error fetching products_ajax", response.message);
+            }
+        },
+        error: function(error) {
+            console.error("Failed to fetch products:", error);
+        }
+    });
+}
+
+function searchProduct(searchValue) {
+    let filteredProducts = allProducts.filter(product => 
+        product.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    populateDropdown(filteredProducts);
+}
+
+function populateDropdown(products) {
+    let productsDropdown = $("#productDropdown");
+    // Clear previous entries
+    productsDropdown.empty();
+    products.forEach(product => {
+        productsDropdown.append(`<option value="${product.id}">${product.name}</option>`);
+    });
+}
+
 
 
 function loadCategories() {
@@ -101,6 +140,7 @@ function loadProducts(subcategoryId) {
     });
 }
 
+
 function fetchShopId() {
     let retrievedShopId = localStorage.getItem('shopId');
     console.log("Retrieved Shop ID:", retrievedShopId);
@@ -148,8 +188,9 @@ function submitDiscount() {
             success: function(response) {
                 if(response.status === "success") {
                     console.log(response.message);
+                    console.log(response.calculations);
                     // Show a notification
-                    alert("Discount uploaded successfully!");
+                    alert(response.message);
                     // Redirect to index.html
                     window.location.href = 'index.html';
                 } else {

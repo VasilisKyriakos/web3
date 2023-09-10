@@ -1,0 +1,291 @@
+{  
+    "products": [
+    {
+      "id": "0",
+      "name": "Κύκνος Τομάτες Αποφλ Ολoκλ 400γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "a02951b1c083449b9e7fab2fabd67198"
+    },
+    {
+      "id": "1",
+      "name": "Elite Φρυγανιές Ολικής Άλεσης 180γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "a483dd538ecd4ce0bdbba36e99ab5eb1"
+    },
+    {
+      "id": "2",
+      "name": "Trata Σαρδέλα Λαδιού 100γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "df10062ca2a04789bd43d18217008b5f"
+    },
+    {
+      "id": "3",
+      "name": "Μεβγάλ Τυρί Ημισκλ Μακεδ 420γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "4c73d0eccd1e4dde8bb882e436a64ebb"
+    },
+    {
+      "id": "4",
+      "name": "Μινέρβα Χωριό Μαργαρίνη Με Ελαιόλαδο 250γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "a240e48245964b02ba73d1a86a2739be"
+    },
+    {
+      "id": "5",
+      "name": "Εύρηκα Λευκαντικό 60γρ",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "7",
+      "name": "Sprite 330ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "3010aca5cbdc401e8dfe1d39320a8d1a"
+    },
+    {
+      "id": "8",
+      "name": "Μετέωρα Ξύδι Λευκού Κρασιού 400ml",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "5dca69b976c94eccbf1341ee4ee68b95"
+    },
+    {
+      "id": "9",
+      "name": "Μέλισσα Τορτελίνια Γεμ Τυρίων 250γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "0c347b96540a427e9823f321861ce58e"
+    },
+    {
+      "id": "10",
+      "name": "Klinex Χλωρίνη Ultra Lemon 750ml",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "11",
+      "name": "Στεργίου Τσουρέκι 380γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "0e1982336d8e4bdc867f1620a2bce3be"
+    },
+    {
+      "id": "12",
+      "name": "Sani Πάνα Ακρατ Sensitive N4 Xlarge 10τεμ",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "0bf072374a8e4c40b915e4972990a417"
+    },
+    {
+      "id": "13",
+      "name": "3 Άλφα Ρεβύθια Χονδρά Εισαγωγής 500γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "50e8a35122854b2b9cf0e97356072f94"
+    },
+    {
+      "id": "14",
+      "name": "Soupline Mistral Μαλακτικό Συμπ 28πλ",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "15",
+      "name": "Knorr Κύβοι Ζωμού Λαχανικών Extra Γεύση 147γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "3935d6afbf50454595f1f2b99285ce8c"
+    },
+    {
+      "id": "16",
+      "name": "Ζαγόρι Νερό 500ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "bc4d21162fbd4663b0e60aa9bd65115e"
+    },
+    {
+      "id": "17",
+      "name": "Hansaplast Universal Αδιάβροχα 20τεμ",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "1b59d5b58fb04816b8f6a74a4866580a"
+    },
+    {
+      "id": "18",
+      "name": "Friskies Άμμος Υγιεινής 5κιλ",
+      "category": "662418cbd02e435280148dbb8892782a",
+      "subcategory": "926262c303fe402a8542a5d5cf3ac7eb"
+    },
+    {
+      "id": "20",
+      "name": "Everyday Σερβ Super/Ultra Plus Sens 10τεμ",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "2bce84e7df694ab1b81486aa2baf555d"
+    },
+    {
+      "id": "21",
+      "name": "Έψα Λεμοναδα 232ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "3010aca5cbdc401e8dfe1d39320a8d1a"
+    },
+    {
+      "id": "22",
+      "name": "Pyrox Εντομ/Κο Σπιράλ 10τεμ",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "8f98818a7a55419fb42ef1d673f0bb64"
+    },
+    {
+      "id": "23",
+      "name": "Fairy Υγρό Πιάτων Ultra Λεμόνι 900ml",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "e60aca31a37a40db8a83ccf93bd116b1"
+    },
+    {
+      "id": "24",
+      "name": "Δέλτα Γάλα Πλήρες 2λιτ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "b3992eb422c2495ca02dd19de9d16ad1"
+    },
+    {
+      "id": "25",
+      "name": "Elite Φρυγανιές Σταριού Κουτί 250γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "a483dd538ecd4ce0bdbba36e99ab5eb1"
+    },
+    {
+      "id": "27",
+      "name": "Nestle Φαρίν Λακτέ 350γρ",
+      "category": "8016e637b54241f8ad242ed1699bf2da",
+      "subcategory": "7e86994327f64e3ca967c09b5803966a"
+    },
+    {
+      "id": "28",
+      "name": "Μπριζόλες Καρέ/Κόντρα Χοιρ Νωπές Εισ Μ/Ο ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "a73f11a7f08b41c081ef287009387579"
+    },
+    {
+      "id": "29",
+      "name": "Fissan Baby Κρέμα 50γρ",
+      "category": "8016e637b54241f8ad242ed1699bf2da",
+      "subcategory": "ddb733df68324cfc8469c890b32e716d"
+    },
+    {
+      "id": "30",
+      "name": "Νουνού Γάλα Family Υψ Θερ Επ Light 1,5% 1,5λιτ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "b3992eb422c2495ca02dd19de9d16ad1"
+    },
+    {
+      "id": "31",
+      "name": "Everyday Σερβ Extr Long/Ultra Plus Hyp 10τεμ",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "2bce84e7df694ab1b81486aa2baf555d"
+    },
+    {
+      "id": "32",
+      "name": "Bailey's Irish Cream Λικέρ 700ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "08f280dee57c4b679be0102a8ba1343b"
+    },
+    {
+      "id": "33",
+      "name": "Nivea Γαλάκτ Καθαρ Ξηρ/ Ευαίσθ Επιδ 200ml",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "5a2a0575959c40d6a46614ab99b2d9af"
+    },
+    {
+      "id": "34",
+      "name": "Dr Beckmann Καθαρ Πλυν Ρούχ 250γρ",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "35",
+      "name": "Klinex Σπρέυ 4σε1 750ml",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "36",
+      "name": "Τεντούρα Κάστρο Λικέρ 500ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "08f280dee57c4b679be0102a8ba1343b"
+    },
+    {
+      "id": "37",
+      "name": "Ήλιος Πιπέρι Μαύρο Τριμμένο 40gr",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "2ad2e93c1c0c41b4b9769fe06c149393"
+    },
+    {
+      "id": "38",
+      "name": "Agrino Φασόλια Μέτρια 500γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "50e8a35122854b2b9cf0e97356072f94"
+    },
+    {
+      "id": "39",
+      "name": "Αχλάδια Κρυσταλία Εισ Εξτρα",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "ea47cc6b2f6743169188da125e1f3761"
+    },
+    {
+      "id": "40",
+      "name": "Αρνιά Νωπά Ελλην Γαλ Τεμ Χ/Κ Χ/Σ Συσκ/Νο",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "0936072fcb3947f3baf83e31bb5c1cab"
+    },
+    {
+      "id": "41",
+      "name": "Overlay Κρέμα Επίπλων 250ml",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "42",
+      "name": "Μεταξά 3 Μπράντυ 350ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "08f280dee57c4b679be0102a8ba1343b"
+    },
+    {
+      "id": "43",
+      "name": "Fornet Καθαρ Φούρνου 300ml",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "44",
+      "name": "Pyrox Εντομ/Ko Σπιράλ 20τεμ",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "8f98818a7a55419fb42ef1d673f0bb64"
+    },
+    {
+      "id": "45",
+      "name": "Axe Αποσμητικό Σπρέυ Africa 150ml",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "35410eeb676b4262b651997da9f42777"
+    },
+    {
+      "id": "46",
+      "name": "Roli Καθαριστικό Σκόνη Για Όλες Τις Επιφάνειες Λεμονί 500γρ",
+      "category": "d41744460283406a86f8e4bd5010a66d",
+      "subcategory": "3be81b50494d4b5495d5fea3081759a6"
+    },
+    {
+      "id": "47",
+      "name": "Λακωνία Φυσικός Χυμός Πορτοκάλι 1λιτ",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "4f1993ca5bd244329abf1d59746315b8"
+    },
+    {
+      "id": "48",
+      "name": "Axe Αφροντούς Africa 400ml",
+      "category": "8e8117f7d9d64cf1a931a351eb15bd69",
+      "subcategory": "46b02b6b4f4c4d5d8a0efe21d0981027"
+    },
+    {
+      "id": "49",
+      "name": "Red Bull Ενεργειακό Ποτό 250ml",
+      "category": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "subcategory": "3010aca5cbdc401e8dfe1d39320a8d1a"
+    },
+    {
+      "id": "50",
+      "name": "Becel Pro Activ Μαργαρίνη Σκαφ 250γρ",
+      "category": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "subcategory": "a240e48245964b02ba73d1a86a2739be"
+    }]
+}

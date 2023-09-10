@@ -6,7 +6,6 @@ window.onload = function() {
         $("#navbar-placeholder").load("navbar.html");
      });
      
-    
     // Initialize Leaflet map
     // Patras Location --> [38.24663003171079, 21.735297957672223]
     var map = L.map('map').setView([51.505, -0.09], 13);
@@ -169,9 +168,7 @@ window.onload = function() {
         });
     
     
- 
-    
-    
+
 
     var allMarkers = []; // Array to hold all markers    
     var discountShops = []; // Array to hold all markers    

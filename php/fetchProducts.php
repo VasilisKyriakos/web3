@@ -1,4 +1,5 @@
 <?php
+
 include "connector.php";
 session_start();
 
@@ -15,13 +16,13 @@ $response = [
 try {
     $subcategoryId = isset($_POST['subcategory_id']) ? $_POST['subcategory_id'] : null;
 
-    // Check if subcategory ID is provided
-    if (!$subcategoryId) {
-        throw new Exception("Subcategory ID not provided!");
+    // If subcategory ID is provided, set specific query, otherwise fetch all products
+    if ($subcategoryId) {
+        $query = "SELECT * FROM products WHERE subcategory = '$subcategoryId'";
+    } else {
+        $query = "SELECT * FROM products";
     }
 
-    // Fetch products based on subcategory
-    $query = "SELECT * FROM products WHERE subcategory = '$subcategoryId'";
     $result = mysqli_query($link, $query);
 
     if (!$result) {
@@ -41,4 +42,5 @@ try {
 
 mysqli_close($link);
 echo json_encode($response);
+
 ?>
