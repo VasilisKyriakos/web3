@@ -4,23 +4,31 @@ include "connector.php";
 
 $response = ['status' => 'error', 'shops' => [], 'message' => ''];
 
-if (isset($_GET['category_name'])) {
-    $category_id = mysqli_real_escape_string($link, $_GET['category_name']);
+if (isset($_GET['category_id'])) {
+    $category_id = mysqli_real_escape_string($link, $_GET['category_id']);
     
     // The above query to fetch shops with a discount for products in the given category
     $query = "
         SELECT 
             products.name, 
             products.category, 
-            discounts.*
+            discounts.*,
+            shops.*
         FROM 
             products 
         JOIN 
             discounts 
         ON 
-            products.name = discounts.product_name
+            products.name = discounts.product_name 
+        JOIN
+            shops
+        ON 
+            shops.id = discounts.shop_id
         WHERE 
-            products.category = '$category_name'
+            products.category = '$category_id'
+        GROUP BY
+            shops.id
+
     ";
     
     $result = mysqli_query($link, $query);

@@ -64,7 +64,10 @@ window.onload = function() {
         });
     }
 
-
+    function clearMarkers(){
+        allMarkers.forEach(marker => marker.remove());
+            allMarkers = [];
+    }
         
     function loadCategories() {
         $.ajax({
@@ -89,16 +92,59 @@ window.onload = function() {
 
     
     function fetchShopsForCategory(categoryName) {
+
+        var discountIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         $.ajax({
-            url: './php/fetchShopsForCategory.php',
+            url: './php/fetchShopForCategory.php',
             type: 'GET',
-            data: { category_name: categoryName },
+            data: { category_id: categoryName },
             dataType: 'json',
             success: function(response) {
                 if(response.status === "success") {
-                    console.log("MaxFerstapen");
+                    if (response && response.shops && response.shops.length > 0) {
+                        response.shops.forEach(shop => {
+                            console.log("fetchShopsForCategory: " + shop.name);
+                            console.log("fetchshopsLat: " + shop.lat);
+
+                            var popupContentInitial = `
+                            <div>
+                                <strong>${shop.name || "Shop"}</strong><br>
+                                <a href="./addDiscount.html?shopId=${shop.id}" 
+                                class="btn btn-sm btn-primary" 
+                                style="color: white;">Add Discount</a>
+                            </div>
+                            `;
+                        
+                            var marker = L.marker([shop.lat, shop.lon], { 
+                                icon: discountIcon 
+                            })
+                            .addTo(map)
+                            .bindPopup(popupContentInitial);
+                
+                            marker.shopData = shop;
+                            allMarkers.push(marker);
+                
+                            marker.on('click', function() {
+                                console.log("Clicked shopId:", shop.id);
+                                localStorage.setItem('shopId', shop.id);
+                
+                                
+                                fetchDiscountsForShop(shop.id, function(popupContentWithDiscounts) {
+                                    marker.setPopupContent(popupContentWithDiscounts).openPopup();
+                                });
+                                
+                            });
+                        });
+                    }
                     // Handle the data - for example, display the shops on a map
-                    displayShopsOnMap(response.shops); // Assuming you have a function that can display these shops on a map
+                    //displayShopsOnMap(response.shops); // Assuming you have a function that can display these shops on a map
                 } else {
                     console.error("Error fetching shops for category:", response.message);
                 }
@@ -109,22 +155,16 @@ window.onload = function() {
         });
     }
 
-
-
-    $('#fetchShopsBtn').click(function() {
-        const categoryId = $("#categoryDropdown").val(); // Assuming you want to get the selected category ID from the dropdown
-        fetchShopsForCategory(categoryId);
-    });
-
     //Function that triggers when category from index is selected
     $('#categoryDropdown').on('change', function() {
+            clearMarkers();
             const selectedCategory = $(this).val();
     
             // If default option is selected, you might want to skip the AJAX call
             if (selectedCategory === 'defaultCategory') {
                 return;
             }
-    
+            console.log("Category change:" + selectedCategory);
             fetchShopsForCategory(selectedCategory)
         });
     
