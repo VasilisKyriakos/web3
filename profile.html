@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/profile/profile.js" defer></script>
+</head>
+
+<body class="bg-light">
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="p-5 bg-white rounded-lg shadow">
+                    <h2 class="mb-4">User Profile</h2>
+
+                    <!-- Edit Username/Password -->
+                    <section class="edit-section">
+                        <h3>Edit Profile</h3>
+                        <div class="mb-3">
+                            <label for="edit-username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="edit-username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="edit-password" required>
+                        </div>
+                        <button class="btn btn-primary w-100" id="updateProfileBtn">Update Profile</button>
+                    </section>
+
+                    <!-- User Details -->
+                    <section class="details-section mt-4">
+                        <h3>Details</h3>
+                        <p><strong>Offers Submitted:</strong> <span id="offers-history"></span></p>
+                        <p><strong>Likes/Dislikes History:</strong> <span id="likes-dislikes-history"></span></p>
+                        <p><strong>Total Score:</strong> <span id="total-score"></span></p>
+                        <p><strong>Current Month's Score:</strong> <span id="current-month-score"></span></p>
+                        <p><strong>Tokens Received Last Month:</strong> <span id="last-month-tokens"></span></p>
+                        <p><strong>Total Tokens Received:</strong> <span id="total-tokens"></span></p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
