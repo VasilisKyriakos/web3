@@ -349,54 +349,59 @@ window.onload = function() {
 
     
 
-    // Function to fetch discounts for a shop and return the constructed popup content
-    function fetchDiscountsForShop(shopId,categoryId, callback) {
+// Function to fetch discounts for a shop and return the constructed popup content
 
-        $.ajax({
-            url: './php/fetchDiscountForShops.php',
-            type: 'GET',
-            data: { shop_id: shopId, category_id: categoryId},
-            dataType: 'json',
-            success: function(response) {
-                if(response.status === "success" && response.data.length > 0) {
-                    var discountDetails = `<div class="discount-container">`;
-                    response.data.forEach(discount => {
-                        discountDetails += `
-                        <ul class="list-group mt-2">
-                            <li class="list-group-item"><strong>Product:</strong> ${discount.product_name}</li>
-                            <li class="list-group-item"><strong>Price:</strong> ${discount.price}</li>
-                            <li class="list-group-item"><strong>Date:</strong> ${discount.date_of_entry}</li>
-                            <li class="list-group-item"><strong>Likes:</strong> ${discount.likes} / <strong>Dislikes:</strong> ${discount.dislikes}</li>
-                            <li class="list-group-item"><strong>Stock:</strong> ${discount.in_stock === '1' ? 'Yes' : 'No'}</li>
-                        </ul>
-                    `;
-                    
-                    });
+function fetchDiscountsForShop(shopId, categoryId, callback) {
 
-                    var popupContent = `
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">${response.data[0].name || "Shop"}</h5>
-                            ${discountDetails}
-                            <div class="mt-3">
-                                <a href="./addDiscount.html?shopId=${shopId}" class="btn btn-success text-white btn-sm">Add Discount</a>
-                                <a href="./reviewDiscounts.html?shopId=${shopId}" class="btn btn-success text-white btn-sm ml-2">Review</a>
-                            </div>
+    $.ajax({
+        url: './php/fetchDiscountForShops.php',
+        type: 'GET',
+        data: { shop_id: shopId, category_id: categoryId},
+        dataType: 'json',
+        success: function(response) {
+            if(response.status === "success" && response.data.length > 0) {
+                var discountDetails = `<div class="discount-container">`;
+                response.data.forEach(discount => {
+                    let criteriaIcon = discount.satisfying_criteria == 1 
+                        ? '<i class="fas fa-check-circle text-success"></i>' 
+                        : '<i class="fas fa-times-circle text-danger"></i>';
+                    discountDetails += `
+                    <ul class="list-group mt-2">
+                        <li class="list-group-item"><strong>Product:</strong> ${discount.product_name}</li>
+                        <li class="list-group-item"><strong>Price:</strong> ${discount.price}</li>
+                        <li class="list-group-item"><strong>Date:</strong> ${discount.date_of_entry}</li>
+                        <li class="list-group-item"><strong>Likes:</strong> ${discount.likes} / <strong>Dislikes:</strong> ${discount.dislikes}</li>
+                        <li class="list-group-item"><strong>Stock:</strong> ${discount.in_stock === '1' ? 'Yes' : 'No'}</li>
+                        <li class="list-group-item"><strong>Criteria Satisfaction:</strong> ${criteriaIcon}</li>
+                    </ul>
+                `;
+                });
+
+                var popupContent = `
+                <div class="card border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">${response.data[0].name || "Shop"}</h5>
+                        ${discountDetails}
+                        <div class="mt-3">
+                            <a href="./addDiscount.html?shopId=${shopId}" class="btn btn-success text-white btn-sm">Add Discount</a>
+                            <a href="./reviewDiscounts.html?shopId=${shopId}" class="btn btn-success text-white btn-sm ml-2">Review</a>
                         </div>
                     </div>
-                `;
-                
+                </div>
+            `;
 
-                    callback(popupContent);
-                } else {
-                    console.error("No discounts found or error:", response.message);
-                }
-            },
-            error: function(error) {
-                console.error("AJAX error:", error);
+                callback(popupContent);
+            } else {
+                console.error("No discounts found or error:", response.message);
             }
-        });
-    }
+        },
+        error: function(error) {
+            console.error("AJAX error:", error);
+        }
+    });
+}
+
+
 }
 
    

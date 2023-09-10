@@ -8,7 +8,7 @@ include "connector.php";
 
 $response = ['status' => '', 'data' => [], 'message' => ''];
 
-$query = "SELECT DISTINCT s.* FROM shops s JOIN discounts d ON s.id = d.shop_id";
+$query = "SELECT DISTINCT s.*, d.satisfying_criteria FROM shops s JOIN discounts d ON s.id = d.shop_id";
 $result = mysqli_query($link, $query);
 
 if (!$result) {
