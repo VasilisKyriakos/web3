@@ -88,6 +88,35 @@ window.onload = function() {
     }
 
     
+    function fetchShopsForCategory(categoryId) {
+        $.ajax({
+            url: './php/fetchShopsForCategory.php',
+            type: 'GET',
+            data: { category_id: categoryId },
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === "success") {
+                    // Handle the data - for example, display the shops on a map
+                    displayShopsOnMap(response.shops); // Assuming you have a function that can display these shops on a map
+                } else {
+                    console.error("Error fetching shops for category:", response.message);
+                }
+            },
+            error: function(error) {
+                console.error("AJAX error:", error);
+            }
+        });
+    }
+
+
+
+        $('#fetchShopsBtn').click(function() {
+            const categoryId = $("#categoryDropdown").val(); // Assuming you want to get the selected category ID from the dropdown
+            fetchShopsForCategory(categoryId);
+        });
+ 
+    
+    
 
     var allMarkers = []; // Array to hold all markers    
     var discountShops = []; // Array to hold all markers    
