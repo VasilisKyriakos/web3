@@ -88,14 +88,15 @@ window.onload = function() {
     }
 
     
-    function fetchShopsForCategory(categoryId) {
+    function fetchShopsForCategory(categoryName) {
         $.ajax({
             url: './php/fetchShopsForCategory.php',
             type: 'GET',
-            data: { category_id: categoryId },
+            data: { category_name: categoryName },
             dataType: 'json',
             success: function(response) {
                 if(response.status === "success") {
+                    console.log("MaxFerstapen");
                     // Handle the data - for example, display the shops on a map
                     displayShopsOnMap(response.shops); // Assuming you have a function that can display these shops on a map
                 } else {
@@ -110,10 +111,24 @@ window.onload = function() {
 
 
 
-        $('#fetchShopsBtn').click(function() {
-            const categoryId = $("#categoryDropdown").val(); // Assuming you want to get the selected category ID from the dropdown
-            fetchShopsForCategory(categoryId);
+    $('#fetchShopsBtn').click(function() {
+        const categoryId = $("#categoryDropdown").val(); // Assuming you want to get the selected category ID from the dropdown
+        fetchShopsForCategory(categoryId);
+    });
+
+    //Function that triggers when category from index is selected
+    $('#categoryDropdown').on('change', function() {
+            const selectedCategory = $(this).val();
+    
+            // If default option is selected, you might want to skip the AJAX call
+            if (selectedCategory === 'defaultCategory') {
+                return;
+            }
+    
+            fetchShopsForCategory(selectedCategory)
         });
+    
+    
  
     
     

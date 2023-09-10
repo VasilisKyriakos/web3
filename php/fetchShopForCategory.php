@@ -4,8 +4,8 @@ include "connector.php";
 
 $response = ['status' => 'error', 'shops' => [], 'message' => ''];
 
-if (isset($_GET['category_id'])) {
-    $category_id = mysqli_real_escape_string($link, $_GET['category_id']);
+if (isset($_GET['category_name'])) {
+    $category_id = mysqli_real_escape_string($link, $_GET['category_name']);
     
     // The above query to fetch shops with a discount for products in the given category
     $query = "
@@ -20,7 +20,7 @@ if (isset($_GET['category_id'])) {
         ON 
             products.name = discounts.product_name
         WHERE 
-            products.category = '$category_id'
+            products.category = '$category_name'
     ";
     
     $result = mysqli_query($link, $query);
