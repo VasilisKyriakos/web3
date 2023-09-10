@@ -173,7 +173,10 @@ function submitDiscount() {
     let shopId = fetchShopId();
     let productName = $('#productDropdown option:selected').text();
     let productPrice = $('#productPrice').val();
-
+    console.log("user: "+userId);
+    console.log("shop: "+shopId);
+    console.log("pm: "+productName);
+    console.log("pp: "+productPrice);
     if (userId !== null) {
         $.ajax({
             url: './php/uploadDiscount.php',
