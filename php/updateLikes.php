@@ -1,5 +1,6 @@
 <?php
 include "connector.php";
+session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -33,6 +34,11 @@ if (isset($_POST['discount_id']) && isset($_POST['type'])) {
     
     if(!mysqli_query($link, $pointsQuery)) {
         throw new Exception("Failed to update user points: " . mysqli_error($link));
+    }
+    $user_id = $_SESSION['id'];
+    $likesQuery = "INSERT INTO likes (user_id, discount_id, likeType) VALUES ('$user_id', '$discount_id', '$column')";
+    if(!mysqli_query($link, $likesQuery)) {
+        throw new Exception("Failed to update like/dislike table: " . mysqli_error($link));
     }
 
     // Commit the transaction
