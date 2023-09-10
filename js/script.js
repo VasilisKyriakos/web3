@@ -136,7 +136,7 @@ window.onload = function() {
                                 localStorage.setItem('shopId', shop.id);
                 
                                 
-                                fetchDiscountsForShop(shop.id, function(popupContentWithDiscounts) {
+                                fetchDiscountsForShop(shop.id,categoryName, function(popupContentWithDiscounts) {
                                     marker.setPopupContent(popupContentWithDiscounts).openPopup();
                                 });
                                 
@@ -222,6 +222,10 @@ window.onload = function() {
                         localStorage.setItem('shopId', shop.id);
                     });
 
+                    fetchDiscountsForShop(shop.id,null, function(popupContentWithDiscounts) {
+                        marker.setPopupContent(popupContentWithDiscounts);
+                    });
+
                     });
                 } else {
                     console.error("Failed to fetch shops: ", response.message);
@@ -303,7 +307,7 @@ window.onload = function() {
                     localStorage.setItem('shopId', shop.id);
     
                     if (hasDiscount) {
-                        fetchDiscountsForShop(shop.id, function(popupContentWithDiscounts) {
+                        fetchDiscountsForShop(shop.id,null, function(popupContentWithDiscounts) {
                             marker.setPopupContent(popupContentWithDiscounts).openPopup();
                         });
                     }
@@ -321,11 +325,12 @@ window.onload = function() {
     
 
     // Function to fetch discounts for a shop and return the constructed popup content
-    function fetchDiscountsForShop(shopId, callback) {
+    function fetchDiscountsForShop(shopId,categoryId, callback) {
+
         $.ajax({
             url: './php/fetchDiscountForShops.php',
             type: 'GET',
-            data: { shop_id: shopId },
+            data: { shop_id: shopId, category_id: categoryId},
             dataType: 'json',
             success: function(response) {
                 if(response.status === "success" && response.data.length > 0) {

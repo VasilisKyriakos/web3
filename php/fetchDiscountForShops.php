@@ -16,9 +16,27 @@ if (!isset($_GET['shop_id'])) {
 }
 
 $shop_id = mysqli_real_escape_string($link, $_GET['shop_id']);
-
-$query = "SELECT * FROM discounts  JOIN shops ON shops.id = discounts.shop_id WHERE shop_id = $shop_id";
-$result = mysqli_query($link, $query);
+if(isset( $_GET['category_id']) &&  $_GET['category_id'] != null){
+    $category = mysqli_real_escape_string($link, $_GET['category_id']);
+    $query = "SELECT * 
+        FROM discounts  
+        JOIN 
+            shops 
+        ON 
+            shops.id = discounts.shop_id 
+        JOIN 
+            products 
+        ON 
+            discounts.product_name = products.name
+        WHERE 
+            shop_id = $shop_id 
+        AND
+            products.category = '$category'
+        " ;
+}else{
+    $query = "SELECT * FROM discounts  JOIN shops ON shops.id = discounts.shop_id WHERE shop_id = $shop_id";
+}
+    $result = mysqli_query($link, $query);
 
 if (!$result) {
     $response['status'] = 'error';
