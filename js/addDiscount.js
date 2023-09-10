@@ -167,21 +167,24 @@ function getUserId() {
 }
 
 
+
 function submitDiscount() {
 
     let userId = getUserId();
     let shopId = fetchShopId();
     let productName = $('#productDropdown option:selected').text();
     let productPrice = $('#productPrice').val();
-    console.log("user: "+userId);
-    console.log("shop: "+shopId);
-    console.log("pm: "+productName);
-    console.log("pp: "+productPrice);
+
+    console.log("user: " + userId);
+    console.log("shop: " + shopId);
+    console.log("pm: " + productName);
+    console.log("pp: " + productPrice);
+
     if (userId !== null) {
         $.ajax({
             url: './php/uploadDiscount.php',
             type: 'POST',
-            data: { 
+            data: {
                 user_id: userId,
                 shop_id: shopId,
                 product_name: productName,
@@ -189,22 +192,30 @@ function submitDiscount() {
             },
             dataType: 'json',
             success: function(response) {
-                if(response.status === "success") {
+                if (response.status === "success") {
+                    // Show success message using Bootstrap alert
+                    $('#messageDiv').addClass('alert alert-success').removeClass('alert-danger').html(response.message).show();
                     console.log(response.message);
                     console.log(response.calculations);
-                    // Show a notification
-                    alert(response.message);
-                    // Redirect to index.html
-                    window.location.href = 'index.html';
+                 
+                     setTimeout(function() {
+                         window.location.href = 'index.html';
+                     }, 3000);
+                     
                 } else {
+                    // Show error message using Bootstrap alert
+                    $('#messageDiv').addClass('alert alert-danger').removeClass('alert-success').html(response.message).show();
                     console.error("Error:", response.message);
                 }
             },
             error: function(error) {
+                $('#messageDiv').addClass('alert alert-danger').removeClass('alert-success').html("AJAX error. Please try again later.").show();
                 console.error("AJAX error:", error);
             }
         });
     } else {
+        $('#messageDiv').addClass('alert alert-danger').removeClass('alert-success').html("User ID is not set.").show();
         console.error("User ID is not set.");
     }
 }
+
