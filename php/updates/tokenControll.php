@@ -68,7 +68,7 @@ if($today === '01'){
         $amountToDistribute = 0.8 * $totalTokens;
 
         // Step 3: Retrieve all users and their "monthly_points" from the "users" table
-        $sqlUsers = "SELECT user_id, monthly_points FROM users";
+        $sqlUsers = "SELECT id, monthly_points FROM users";
         $resultUsers = mysqli_query($link, $sqlUsers);
 
         if ($resultUsers) {
@@ -77,21 +77,22 @@ if($today === '01'){
                 $totalMonthlyPoints += $rowUser['monthly_points'];
             }
             // Step 4 and Step 5: Calculate the share of tokens and update "tokens" and "total_tokens" for each user
+            $resultUsers = mysqli_query($link, $sqlUsers); // Reset result set
             while ($rowUser = mysqli_fetch_assoc($resultUsers)) {
-                $userId = $rowUser['user_id'];
+                $userId = $rowUser['id'];
                 $monthlyPoints = $rowUser['monthly_points'];
-                $tokensToDistribute = round(($monthlyPoints / $totalMonthlyPoints) * $amountToDistribute);
-
-                // Update the "tokens" and "total_tokens" columns for each user
-                $sqlUpdateUserTokens = "UPDATE users SET tokens = $tokensToDistribute, total_tokens = total_tokens + $tokensToDistribute WHERE user_id = $userId";
+                $tokensToDistribute = round(($monthlyPoints / $totalMonthlyPoints) * $amountToDistribute);                // Update the "tokens" and "total_tokens" columns for each user
+                $sqlUpdateUserTokens = "UPDATE users SET tokens = $tokensToDistribute, total_tokens = total_tokens + $tokensToDistribute WHERE id = $userId";
                 mysqli_query($link, $sqlUpdateUserTokens);
+               
             }
             // Update the "current_tokens" in the "tokens" table
             $newCurrentTokens = $totalTokens - $amountToDistribute;
             $sqlUpdateTokens = "UPDATE tokens SET current_tokens = $newCurrentTokens";
             mysqli_query($link, $sqlUpdateTokens);
-            $response['message'] = "Tokens distributed successfully to users.";
-          
+            $response['status'] = 'success';
+            $response['message'] = 'Updated users tokens';
+
         } else {
             // Handle the query error for retrieving users
             $response['message'] = "Error retrieving users: " . mysqli_error($link);
