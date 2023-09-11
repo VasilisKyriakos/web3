@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discounts Visualization</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-3">
+            <select class="form-control" id="year">
+                <!-- Example years. You can populate this dynamically as well -->
+                <option>2021</option>
+                <option>2022</option>
+                <option>2023</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="month">
+                <!-- Months -->
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary" onclick="fetchDataAndUpdateDiscountChart()">Fetch Data</button>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <canvas id="discountChart"></canvas>
+        </div>
+    </div>
+
+
+    <div class="container mt-5">
+        <h2>Select a Category</h2>
+        <select id="categoryDropdown" class="form-select mb-2 mt-3">
+                    <option value="defaultCategory" selected>Select a Category</option>
+                </select>
+
+        
+        <div class="mt-3">
+            <button id="prevWeek" class="btn btn-primary">Previous Week</button>
+            <button id="nextWeek" class="btn btn-secondary" disabled>Next Week</button>
+            <span id="weekLabel" class="ml-3">Current Week</span>
+        </div>
+    
+        <canvas id="avgDiscountChart"></canvas>
+    </div>
+
+
+</div>
+
+<script src="./js/chart.js"></script>
+</body>
+
+</html>
