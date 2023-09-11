@@ -87,10 +87,10 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
 
     // Include the satisfying_criteria column in your INSERT query
     $query = "INSERT INTO discounts (user_id, shop_id, product_name, price, expired_date, satisfying_criteria) VALUES ('$userId', '$shopId', '$productName', '$productPrice', '$expiryDate', '$satisfyingCriteria')";
-   
+    
     if(mysqli_query($link, $query)) {
         // Create the SQL query to get the average price
-        $query = "SELECT AVG(price) AS avg_price FROM `discounts`";
+        $query = "SELECT AVG(price) AS avg_price FROM `discounts` WHERE product_name = '$productName'";
 
         // Execute the query
         $result = mysqli_query($link, $query);
@@ -99,16 +99,16 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
 
         // Get the average price
         $avgPrice = $row['avg_price'];
+        $response['message'] .= $avgPrice;
 
-
-        $query = "SELECT COUNT(*) FROM `prices` WHERE `product_id` = your_product_id AND 'date' = $dateOfEntry";
-        mysqli_query($link, $query);
+        $query = "SELECT COUNT(*) FROM prices WHERE product_id = '$productId' AND date = '$dateOfEntry'";
+        $result = mysqli_query($link, $query);
         $row = mysqli_fetch_array($result);
-        if ($row[0] == 0) {
+        if ($row[0]==0){
             $query = "INSERT INTO prices (product_id, date, price) VALUES ('$productId', '$dateOfEntry', '$avgPrice')";
             mysqli_query($link, $query);
         }else{
-            $updateQuery = "UPDATE `prices` SET `price` = '$avgPrice' WHERE `product_id` = '$productId' AND `date` = '$dateOfEntry'";
+            $updateQuery = "UPDATE `prices` SET `price` = '$avgPrice' WHERE product_id = '$productId' AND date = '$dateOfEntry'";
             // Execute the query to update the prices table
             $updateResult = mysqli_query($link, $updateQuery);
         }    

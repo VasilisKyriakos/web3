@@ -198,9 +198,9 @@ function submitDiscount() {
                     console.log(response.message);
                     console.log(response.calculations);
                  
-                     setTimeout(function() {
-                         window.location.href = 'index.html';
-                     }, 3000);
+                     //setTimeout(function() {
+                         //window.location.href = 'index.html';
+                     //}, 3000);
                      
                 } else {
                     // Show error message using Bootstrap alert
