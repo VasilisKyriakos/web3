@@ -89,8 +89,33 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
     $query = "INSERT INTO discounts (user_id, shop_id, product_name, price, expired_date, satisfying_criteria) VALUES ('$userId', '$shopId', '$productName', '$productPrice', '$expiryDate', '$satisfyingCriteria')";
    
     if(mysqli_query($link, $query)) {
+        // Create the SQL query to get the average price
+        $query = "SELECT AVG(price) AS avg_price FROM `discounts`";
+
+        // Execute the query
+        $result = mysqli_query($link, $query);
+        // Fetch the result as an associative array
+        $row = mysqli_fetch_assoc($result);
+
+        // Get the average price
+        $avgPrice = $row['avg_price'];
+
+
+        $query = "SELECT COUNT(*) FROM `prices` WHERE `product_id` = your_product_id AND 'date' = $dateOfEntry";
+        mysqli_query($link, $query);
+        $row = mysqli_fetch_array($result);
+        if ($row[0] == 0) {
+            $query = "INSERT INTO prices (product_id, date, price) VALUES ('$productId', '$dateOfEntry', '$avgPrice')";
+            mysqli_query($link, $query);
+        }else{
+            $updateQuery = "UPDATE `prices` SET `price` = '$avgPrice' WHERE `product_id` = '$productId' AND `date` = '$dateOfEntry'";
+            // Execute the query to update the prices table
+            $updateResult = mysqli_query($link, $updateQuery);
+        }    
         $response['status'] = 'success';
         $response['message'] .= " Discount uploaded successfully!";
+        
+
     } else {
         $response['message'] .= " Database error: " . mysqli_error($link);
     }
