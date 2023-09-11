@@ -6,27 +6,45 @@ $(document).ready(function() {
     initEmptyChart();  // Initialize an empty chart on page load
     initEmptyAvgDiscountChart();
     loadCategories();
+    checkButtonsState();
+
+    let selectedCategoryId = null;
 
     $('#categoryDropdown').on('change', function() {
-        const selectedCategoryId = $(this).val();
+     selectedCategoryId = $(this).val();
+
         console.log(selectedCategoryId);
         // Check if the default option is selected; if yes, you can either clear the chart or do nothing.
         if (selectedCategoryId === "defaultCategory") {
             // Clear the chart or do nothing
             return;
         }
-
         // Reset weekOffset when changing category
         weekOffset = 0;
-
         // Fetch data and update the chart
         fetchDataAndUpdateAvgDiscountChart(selectedCategoryId);
     });
 
 
+        // Event listener for the "Previous Week" button
+    document.getElementById('prevWeek').addEventListener('click', function() {
+        console.log(selectedCategoryId)
+        weekOffset++;  // Decrement the week offset
+        fetchDataAndUpdateAvgDiscountChart(selectedCategoryId);  // Fetch and update the chart for the new week
+        updateWeekLabel();  // Update the week label
+        checkButtonsState();  // Check if buttons should be enabled or disabled
+    });
+
+    // Event listener for the "Next Week" button
+    document.getElementById('nextWeek').addEventListener('click', function() {
+      
+        weekOffset--;  
+        fetchDataAndUpdateAvgDiscountChart(selectedCategoryId);  
+        updateWeekLabel(); 
+        checkButtonsState(); 
+    });
 
 });
-
 
 
 function loadCategories() {
@@ -117,25 +135,25 @@ function updateDiscountChart(year, month, data) {
 function initEmptyAvgDiscountChart() {
     const ctx = document.getElementById('avgDiscountChart').getContext('2d');
     avgDiscountChart = new Chart(ctx, {
-        type: 'line',  // Line chart for displaying trends
+        type: 'line',
         data: {
             labels: [],  // Days of the week
             datasets: [{
                 label: 'Average Discount %',
-                data: [],  
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                data: [],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',  // Fill color
+                borderColor: 'rgba(255, 99, 132, 1)',  // Line color
                 borderWidth: 1,
-                fill: false
+                fill: true,  // Fill the area under the line
+                tension: 0.4  // Add a curve to the line
             }]
         },
         options: {
             scales: {
                 y: {
-                    min: 0,
-                    max: 100,  // Assuming maximum percentage is 100%
+                    min: -100,
+                    max: 200,
                     ticks: {
-                        // Include a sign for the percentage
                         callback: function(value, index, values) {
                             return value + '%';
                         }
@@ -145,7 +163,6 @@ function initEmptyAvgDiscountChart() {
         }
     });
 }
-
 
 
 
@@ -160,6 +177,7 @@ function fetchDataAndUpdateAvgDiscountChart(categoryId) {
         dataType: 'json',
         success: function(response) {
             if (response.status === 'success') {
+                console.log(response.data);
                 updateAvgDiscountChart(response.data);
             } else {
                 console.error("Error fetching data:", response.message);
@@ -171,26 +189,50 @@ function fetchDataAndUpdateAvgDiscountChart(categoryId) {
     });
 }
 
-/*
-
-$("#btnPrevWeek").click(function() {
-    weekOffset--;
-    fetchDataAndUpdateChart();
-});
-
-$("#btnNextWeek").click(function() {
-    weekOffset++;
-    fetchDataAndUpdateChart();
-});
-*/
-
 function updateAvgDiscountChart(data) {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const avgDiscountPercent = data.avg_difference_over_week;  // Assumes the data returns the average discount per day of the week
+    const avgDiscountPercent = data.avg_discount_percent;  // Assumes the data returns the average discount per day of the week
 
     avgDiscountChart.data.labels = daysOfWeek;
     avgDiscountChart.data.datasets[0].data = avgDiscountPercent;
     avgDiscountChart.update();
 }
+
+
+
+
+// Function to update the week label based on the weekOffset
+function updateWeekLabel() {
+    const label = document.getElementById('weekLabel');
+    if (weekOffset === 0) {
+        label.textContent = "Current Week";
+    } else if (weekOffset === -1) {
+        label.textContent = "Last Week";
+    } else if (weekOffset < 0) {
+        label.textContent = `${Math.abs(weekOffset)} Weeks Ago`;
+    } else {
+        label.textContent = `${weekOffset} Weeks Ahead`;
+    }
+}
+
+// Function to check if the "Previous Week" or "Next Week" buttons should be enabled or disabled
+function checkButtonsState() {
+    const prevWeekButton = document.getElementById('prevWeek');
+    const nextWeekButton = document.getElementById('nextWeek');
+    
+    // Example logic: Disable the "Next Week" button if we're looking at the current week
+    if (weekOffset === 0) {
+        nextWeekButton.disabled = true;
+    } else {
+        nextWeekButton.disabled = false;
+    }
+    
+    // Add any other conditions as needed
+}
+
+
+
+
+
 
 
