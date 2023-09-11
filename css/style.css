@@ -11,6 +11,14 @@
 }
 
 
+.btn-teal {
+    background-color: #1c8767;
+    color: #ffffff;
+    border: none;
+}
+.btn-teal:hover {
+    background-color: #17a688; /* a slightly darker shade of teal on hover */
+}
 
 /* Hide the scrollbar for IE, Edge and Firefox */
 .discount-container {

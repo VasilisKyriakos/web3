@@ -27,7 +27,7 @@
         <!-- Navbar -->
         <div id="navbar-placeholder"></div>
 
-        <!-- Map Container with Search Area -->
+                <!-- Map Container with Search Area -->
         <div class="container mt-5">
             <div class="position-relative bg-white rounded p-2 shadow" style="height: 768px;">
                 <!-- Map -->
@@ -35,20 +35,21 @@
 
                 <!-- Overlay Search Area -->
                 <div class="position-absolute top-0 end-0 p-3" style="z-index: 1001;">
-                    <div class="shadow-sm d-flex align-items-center">  
-                        <input type="text" id="shopSearch" class="form-control rounded-pill mr-2" placeholder="Search for shops..." autocomplete="off">
-                        
-                        <button id="btnSearch" class="btn btn-teal rounded-pill"><i class="bi bi-search text-white"></i></button> <!-- Adjusted button color to teal with white icon -->
-                    </div>
-                    <div id="shopDropdown" class="mt-2 w-100 bg-white rounded shadow-lg" style="display: none; max-height: 200px; overflow-y: auto;">
-                        <!-- Dropdown items will be added here -->
+                    <!-- Search and Category container -->
+                    <div class="shadow-sm d-flex flex-column align-items-end">
+                        <!-- Search Section -->
+                        <div class="d-flex align-items-center mb-2">
+                            <input type="text" id="shopSearch" class="form-control rounded-pill mr-2" placeholder="Search for shops..." autocomplete="off">
+                            <button id="btnSearch" class="btn btn-teal rounded-pill"><i class="bi bi-search text-white"></i></button>
+                        </div>
+                        <div id="shopDropdown" class="w-100 bg-white rounded shadow-lg" style="display: none; max-height: 200px; overflow-y: auto;"></div>
+
+                        <!-- Category Dropdown -->
+                        <select id="categoryDropdown" class="form-control rounded-pill mt-2">
+                            <option value="defaultCategory" selected>Select a Category</option>
+                        </select>
                     </div>
                 </div>
-                
-                <select id="categoryDropdown" class="form-select mb-2 mt-3">
-                    <option value="defaultCategory" selected>Select a Category</option>
-                </select>
-
 
                 <style>
                     .btn-teal {
@@ -60,8 +61,8 @@
                         background-color: #17a688; /* a slightly darker shade of teal on hover */
                     }
                 </style>
-
             </div>
         </div>
+
     </body>
 </html>
