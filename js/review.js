@@ -74,22 +74,33 @@ function fetchDiscountsForShop(shopId) {
 }
 
 
-function updateLikes(discountId, type) {
+function updateLikes(discountId, typeL) {
     console.log("discountId",discountId);
-    console.log("type",type);
+    console.log("type",typeL);
     
-    $.post("./php/updateLikes.php", {
-        discount_id: discountId,
-        type: type
-    }, function(response) {
-        if (response.status === "success") {
-            fetchDiscountsForShop(fetchShopId()); // Refetch to update numbers
-        } else {
-            console.error(response.message);
-            alert('Error updating likes/dislikes.');
+    $.ajax({
+        url:"./php/updateLikes.php", 
+        type: 'POST',
+        data: {
+            discount_id: discountId,
+            type: typeL
+        },
+
+        dataType: "json",
+        success: function(response) {
+            if (response.status === "success") {
+                console.log("Succes:" + response.message);
+                fetchDiscountsForShop(fetchShopId()); // Refetch to update numbers
+            } else {
+                console.error(response.message);
+                alert('Error updating likes/dislikes.');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.error("Request failed: " + textStatus, errorThrown);
         }
-    }, "json");
-}
+    });
+}0    
 
 
 

@@ -16,7 +16,7 @@ $query = "SELECT *
     JOIN 
         discounts
     ON 
-        likes.dicount_id = discounts.discount_id    
+        likes.discount_id = discounts.discount_id    
     WHERE likes.user_id = $user_id";
 
 $result = mysqli_query($link, $query);
