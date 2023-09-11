@@ -13,6 +13,7 @@ if(mysqli_num_rows($result) > 0) {
     // Create session or cookies as necessary
     $_SESSION['username'] = $username;
     $_SESSION['id'] = $row['id'];
+    $_SESSION['isAdmin'] = $row['isAdmin'];
     echo "Login successful!";
 } else {
     echo "Incorrect username or password.";

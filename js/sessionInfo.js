@@ -43,6 +43,7 @@ function clearSession(){
 }
 
 function sessionActive(){
+    
     $.ajax({
         url: './php/sessionInfo.php', // Updated path to session_handler.php
         type: 'GET',
@@ -59,4 +60,23 @@ function sessionActive(){
         }
     });
 
+}
+
+function isAdmin(){
+    console.log("Checking for admin");
+    $.ajax({
+        url: './php/sessionInfo.php', // Updated path to session_handler.php
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if(response.isAdmin != "1"){
+                window.location.href = "index.html";
+                console.log("Session info id: " + response.isAdmin);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            window.location.href = "index.html";
+            console.error("Error checking session:", textStatus, errorThrown);
+        }
+    });
 }
