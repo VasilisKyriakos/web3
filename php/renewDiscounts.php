@@ -52,7 +52,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $response = array(
     'status' => 'success',
     'message' => 'Successfully processed expired bids',
-    'updated' => $updated,
+    'updated' => $updated, 
     'deleted' => $deleted
 );
 

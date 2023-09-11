@@ -13,7 +13,7 @@ window.onload = function() {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
-
+    processSystemTokens();
     processExpiredBids();
     loadShopsDiscounts();
     loadShops();
@@ -68,7 +68,24 @@ window.onload = function() {
             allMarkers = [];
     }
 
-
+    function processSystemTokens(){
+        $.ajax({
+            url: './php/updates/tokenControll.php', // Change this to the path of your PHP file
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if(response.status === "success") {
+                    console.log("Successfull update.");
+                    
+                } else {
+                    console.error("Error", response.message);
+                }
+            },
+            error: function(error) {
+                console.error("Ajax error:", error);
+            }
+        });
+    }
 
     function processExpiredBids() {
         $.ajax({
