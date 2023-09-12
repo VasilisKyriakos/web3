@@ -124,6 +124,8 @@ window.onload = function() {
                     console.log("Month points: "+ user.monthly_points);
                     $('#total-score').text(user.total_points);
                     $('#current-month-score').text(user.monthly_points);
+                    $('#last-month-tokens').text(user.tokens);
+                    $('#total-tokens').text(user.total_tokens);
                     
                 } else {
                     console.error(response.message);
