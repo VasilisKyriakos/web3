@@ -5,6 +5,7 @@ session_start();
 $response = [
     'id' => '',
     'username' => '',
+    'isAdmin' =>''
 ];
 // Check if a user is logged in
 if (isset($_SESSION['username'])) {
