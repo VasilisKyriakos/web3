@@ -148,8 +148,9 @@ function fetchShopId() {
 }
 
 
-function getUserId() {
+function fetchUserId() {
     let userId = null;
+    console.log("Get user id");
     $.ajax({
         url: './php/sessionInfo.php',
         type: 'GET',
@@ -157,7 +158,7 @@ function getUserId() {
         async: false, // Makes the request synchronous
         success: function(response) {
             userId = response.id;
-            console.log("User ID:",userId);
+            console.log("getUserID : User ID:",userId);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error checking session:", textStatus, errorThrown);
@@ -170,7 +171,7 @@ function getUserId() {
 
 function submitDiscount() {
 
-    let userId = getUserId();
+    let userId = fetchUserId();
     let shopId = fetchShopId();
     let productName = $('#productDropdown option:selected').text();
     let productPrice = $('#productPrice').val();

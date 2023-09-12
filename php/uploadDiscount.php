@@ -11,10 +11,11 @@ error_reporting(E_ALL);
 
 $response = array(
     'status' => 'error',
-    'message' => ''
+    'message' => 'Unknown error'
 );
 
 if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['product_price'])) {
+    $response['message'] .= ". If passed  ";
     $userId = (int)$_POST['user_id'];
     $shopId = $_POST['shop_id'];
     $productName = $_POST['product_name'];
