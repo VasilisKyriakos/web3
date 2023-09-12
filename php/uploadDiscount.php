@@ -69,17 +69,17 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
         // Reward 50 points
         $queryReward = "UPDATE users SET total_points = total_points + 50 , monthly_points =  monthly_points + 50 WHERE id = '$userId'";
         mysqli_query($link, $queryReward);
-        $response['message'] .= "User rewarded with 50 points for the daily discount.";
+        $response['message'] .= "User rewarded with 50 points for the daily discount.  ";
         $satisfyingCriteria = 1;  // Set to 1 as the criteria is satisfied
     } elseif ($productPrice <= (0.8 * $avgPriceLastWeek)) {
         // Reward 20 points
         $queryReward = "UPDATE users SET total_points = total_points + 50, monthly_points =  monthly_points + 50 WHERE id = '$userId'";
         mysqli_query($link, $queryReward);
-        $response['message'] .= "User rewarded with 20 points for the weekly discount.";
+        $response['message'] .= "User rewarded with 20 points for the weekly discount.  ";
         $satisfyingCriteria = 1;  // Set to 1 as the criteria is satisfied
     } else {
         // No rewards
-        $response['message'] .= "No rewards given, but the discount offer is uploaded.";
+        $response['message'] .= "No rewards given, but the discount offer is uploaded.  ";
     }
 
     $dateOfEntry = date('Y-m-d'); 
@@ -113,7 +113,7 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
             $updateResult = mysqli_query($link, $updateQuery);
         }    
         $response['status'] = 'success';
-        $response['message'] .= " Discount uploaded successfully!";
+        $response['message'] .= " Discount uploaded successfully !";
         
 
     } else {
