@@ -88,6 +88,8 @@ if(isset($_POST['user_id'],$_POST['shop_id'],$_POST['product_name'],$_POST['prod
     // Include the satisfying_criteria column in your INSERT query
     $query = "INSERT INTO discounts (user_id, shop_id, product_name, price, expired_date, satisfying_criteria) VALUES ('$userId', '$shopId', '$productName', '$productPrice', '$expiryDate', '$satisfyingCriteria')";
     
+
+    
     if(mysqli_query($link, $query)) {
         // Create the SQL query to get the average price
         $query = "SELECT AVG(price) AS avg_price FROM `discounts` WHERE product_name = '$productName'";
