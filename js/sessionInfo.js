@@ -71,7 +71,30 @@ function isAdmin(){
         success: function(response) {
             if(response.isAdmin != "1"){
                 window.location.href = "index.html";
-                console.log("Session info id: " + response.isAdmin);
+                console.log("Session info isAdmin: " + response.isAdmin);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            window.location.href = "index.html";
+            console.error("Error checking session:", textStatus, errorThrown);
+        }
+    });
+}
+
+function adminButtons(){
+    $.ajax({
+        url: './php/sessionInfo.php', // Updated path to session_handler.php
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            if(response.isAdmin != "1"){
+                $("#uploadNavItem").hide();
+                $("#chartsNavItem").hide();
+                $("#leaderboardNavItem").hide();
+            }else{
+                $("#uploadNavItem").show();
+                $("#chartsNavItem").show();
+                $("#leaderboardNavItem").show();
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
