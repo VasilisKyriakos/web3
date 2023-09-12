@@ -8,6 +8,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./js/profile/profile.js" defer></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .section-title {
+            border-bottom: 2px solid #6c757d;
+            display: inline-block;
+            padding: 0 0 5px;
+        }
+
+        table thead {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+
+        .scrollable-table {
+            max-height: 400px;
+            overflow-y: auto;
+            display: block;
+        }
+
+        .btn-primary {
+            background-color: #adb5bd;
+            border-color: #adb5bd;
+        }
+
+        .btn-primary:hover {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -16,62 +48,64 @@
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="p-5 bg-white rounded-lg shadow">
                     <h2 class="mb-4">User Profile</h2>
 
                     <!-- Edit Username/Password -->
-                    <section class="edit-section">
-                        <h3>Edit Profile</h3>
+                    <section class="edit-section mb-4">
+                        <h3 class="section-title mb-3">Edit Profile</h3>
                         <div class="mb-3">
                             <label for="edit-username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="edit-username" required>
+                            <input type="text" class="form-control rounded" id="edit-username" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit-password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="edit-password" required>
+                            <input type="password" class="form-control rounded" id="edit-password" required>
                         </div>
                         <button class="btn btn-primary w-100" id="updateProfileBtn">Update Profile</button>
                     </section>
 
                     <!-- User Details -->
-                    <section class="details-section mt-4">
-                        <h3>Details</h3>
-                        <p><strong>Offers Submitted:</strong> <span id="offers-history"></span></p>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Offer ID</th>
-                                    <th>Shop ID</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody id="offers-table-body">
-                                <!-- Data will be inserted here -->
-                            </tbody>
-                        </table>
-                        <p><strong>Likes/Dislikes History:</strong> <span id="likes-dislikes-history"></span></p>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Like/Dislike ID</th>
-                                    <th>Product Name</th>
-                                    <th>Like Type</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="likes-table-body">
-                                <!-- Data will be inserted here -->
-                            </tbody>
-                        </table>
-                        <p><strong>Total Score:</strong> <span id="total-score"></span></p>
+                    <section class="details-section">
+                        <h3 class="section-title mb-3">Details</h3>
+                        <p class="mb-3"><strong>Offers Submitted:</strong> <span id="offers-history"></span></p>
+                        <div class="scrollable-table">
+                            <table class="table table-striped table-hover rounded overflow-hidden">
+                                <thead>
+                                    <tr>
+                                        <th>Offer ID</th>
+                                        <th>Shop ID</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="offers-table-body">
+                                    <!-- Data will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4 mb-3"><strong>Likes/Dislikes History:</strong> <span id="likes-dislikes-history"></span></p>
+                        <div class="scrollable-table">
+                            <table class="table table-striped table-hover rounded overflow-hidden">
+                                <thead>
+                                    <tr>
+                                        <th>Like/Dislike ID</th>
+                                        <th>Product Name</th>
+                                        <th>Like Type</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="likes-table-body">
+                                    <!-- Data will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-4"><strong>Total Score:</strong> <span id="total-score"></span></p>
                         <p><strong>Current Month's Score:</strong> <span id="current-month-score"></span></p>
                         <p><strong>Tokens Received Last Month:</strong> <span id="last-month-tokens"></span></p>
                         <p><strong>Total Tokens Received:</strong> <span id="total-tokens"></span></p>
                     </section>
-
-                
                 </div>
             </div>
         </div>
